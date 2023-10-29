@@ -5,15 +5,18 @@ import { Component } from 'react';
 import { Art } from '../../types';
 import ArtworksAPI from '../../API/GetCollection';
 import adapter from '../../utils/adapter';
+import Button from '../../components/atoms/button/Button';
 
 type Props = unknown;
 type State = {
   arts: Art[] | undefined;
+  error: boolean;
 };
 
 class Gallery extends Component<Props, State> {
   state: State = {
     arts: undefined,
+    error: false,
   };
 
   handlerSearchButtonClick = (text: string) => {
@@ -42,8 +45,16 @@ class Gallery extends Component<Props, State> {
   }
 
   render() {
+    if (this.state.error) {
+      throw new Error('ERRORRRRR...');
+    }
     return (
       <div className={classes.page}>
+        <Button
+          onClick={() => {
+            this.setState({ error: true });
+          }}
+        >{`>>> ERROR BUTTON <<<`}</Button>
         <SearchBar action={this.handlerSearchButtonClick} />
         <ArtList arts={this.state.arts} />
       </div>
