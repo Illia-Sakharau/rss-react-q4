@@ -1,10 +1,11 @@
 import classes from './style.module.scss';
-import { Component } from 'react';
+import { ChangeEventHandler, Component } from 'react';
 
 type Props = {
   className?: string;
   type: string;
   placeholder?: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 };
 type State = unknown;
 
@@ -19,6 +20,7 @@ class Input extends Component<Props, State> {
         className={className}
         type={this.props.type}
         placeholder={this.props.placeholder}
+        onChange={this.props.onChange}
       />
     );
   }
