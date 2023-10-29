@@ -17,6 +17,7 @@ class Gallery extends Component<Props, State> {
   };
 
   handlerSearchButtonClick = (text: string) => {
+    localStorage.setItem('searchText', text);
     this.setState({
       arts: undefined,
     });
@@ -30,7 +31,8 @@ class Gallery extends Component<Props, State> {
   };
 
   componentDidMount(): void {
-    ArtworksAPI.getArtworks(10, 1)
+    const text = localStorage.getItem('searchText') || '';
+    ArtworksAPI.getSearchArtworks(text)
       .then((resp) => resp.data.map((artworkInfo) => adapter(artworkInfo)))
       .then((artworks) =>
         this.setState({

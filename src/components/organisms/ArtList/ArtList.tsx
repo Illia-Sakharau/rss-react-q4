@@ -32,45 +32,4 @@ class ArtList extends Component<Props, State> {
   }
 }
 
-// class ArtList extends Component<Props, State> {
-//   static contextType = ArtsContext
-
-//   state: State = {
-//     arts: undefined,
-//   };
-
-//   componentDidMount(): void {
-//     const arts = this.context
-
-//     console.log(arts)
-
-//     ArtworksAPI.getArtworks(10, 1)
-//       .then((resp) => resp.data.map((artworkInfo) => adapter(artworkInfo)))
-//       .then((artworks) =>
-//         this.setState({
-//           arts: artworks,
-//         })
-//       );
-//   }
-
-//   render() {
-//     return (
-//       <section className={classes.artList}>
-//         <SectionWrapper className={classes.wrapper}>
-//           <SectionHeader>Artworks</SectionHeader>
-//           {!this.state.arts ? (
-//             <Loader />
-//           ) : (
-//             <div className={classes.artListInner}>
-//               {this.state.arts.map((art) => (
-//                 <ArtCard key={art.id} art={art} />
-//               ))}
-//             </div>
-//           )}
-//         </SectionWrapper>
-//       </section>
-//     );
-//   }
-// }
-
 export default ArtList;

@@ -12,21 +12,16 @@ type State = {
 
 class MSearchBar extends Component<Props, State> {
   state = {
-    searchText: '',
+    searchText: localStorage.getItem('searchText') || '',
   };
 
   handleSearchTextChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(123);
+
     this.setState({
       searchText: e.target.value,
     });
   };
-
-  shouldComponentUpdate(nextProps: Props, nextState: State) {
-    if (nextState.searchText === null) {
-      return true;
-    }
-    return false;
-  }
 
   render() {
     return (
@@ -36,6 +31,7 @@ class MSearchBar extends Component<Props, State> {
           placeholder="Type art name, artist or date..."
           className={classes.input}
           onChange={this.handleSearchTextChange}
+          value={this.state.searchText}
         />
         <Button onClick={() => this.props.action(this.state.searchText)}>
           Search
