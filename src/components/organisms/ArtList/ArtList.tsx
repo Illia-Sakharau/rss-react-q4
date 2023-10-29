@@ -1,4 +1,5 @@
 import { Art } from '../../../types';
+import { SectionHeader } from '../../atoms/headers/Headers';
 import Loader from '../../atoms/loader/Loader';
 import SectionWrapper from '../../atoms/sectionWrapper/sectionWrapper';
 import ArtCard from '../../molecules/artCard/ArtCard';
@@ -78,7 +79,8 @@ class ArtList extends Component<Props, State> {
   render() {
     return (
       <section className={classes.artList}>
-        <SectionWrapper>
+        <SectionWrapper className={classes.wrapper}>
+          <SectionHeader>Collection</SectionHeader>
           <div className={classes.artListInner}>
             {!this.state.arts ? (
               <Loader />

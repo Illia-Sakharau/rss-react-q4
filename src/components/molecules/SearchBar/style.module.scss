@@ -1,7 +1,12 @@
 .searchBar {
   display: flex;
+
+  @media (max-width: 590px) {
+    flex-direction: column;
+    gap: 16px;
+  }
 }
 
 .input {
-  flex-grow: 1;
+  flex: 1 1;
 }
