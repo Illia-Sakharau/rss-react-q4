@@ -12,7 +12,7 @@ class ArtCard extends Component<Props, State> {
     return (
       <div className={classes.artCard}>
         <div className={classes.imageWrapper}>
-          <img src={this.props.art.imgURL} alt="image" />
+          <img src={this.props.art.imgURL} alt={this.props.art.imgAlt} />
         </div>
         <div className={classes.descriptionWrapper}>
           <div className={classes.title}>{this.props.art.title}</div>
