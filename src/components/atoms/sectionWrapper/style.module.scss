@@ -1,0 +1,9 @@
+.sectionWrapper {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 64px 32px;
+
+  @media (max-width: 768px) {
+    padding: 32px 16px;
+  }
+}

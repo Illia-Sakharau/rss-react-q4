@@ -1,5 +1,6 @@
 import { Art } from '../../../types';
 import Loader from '../../atoms/loader/Loader';
+import SectionWrapper from '../../atoms/sectionWrapper/sectionWrapper';
 import ArtCard from '../../molecules/artCard/ArtCard';
 import classes from './style.module.scss';
 import { Component } from 'react';
@@ -76,13 +77,17 @@ class ArtList extends Component<Props, State> {
 
   render() {
     return (
-      <div className={classes.artList}>
-        {!this.state.arts ? (
-          <Loader />
-        ) : (
-          this.state.arts.map((art) => <ArtCard key={art.id} art={art} />)
-        )}
-      </div>
+      <section className={classes.artList}>
+        <SectionWrapper>
+          <div className={classes.artListInner}>
+            {!this.state.arts ? (
+              <Loader />
+            ) : (
+              this.state.arts.map((art) => <ArtCard key={art.id} art={art} />)
+            )}
+          </div>
+        </SectionWrapper>
+      </section>
     );
   }
 }
