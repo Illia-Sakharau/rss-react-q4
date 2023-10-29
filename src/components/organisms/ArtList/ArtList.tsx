@@ -19,7 +19,7 @@ class ArtList extends Component<Props, State> {
   };
 
   componentDidMount(): void {
-    ArtworksAPI.getArtworks(20, 1)
+    ArtworksAPI.getArtworks(12, 1)
       .then((resp) => resp.data.map((artworkInfo) => adapter(artworkInfo)))
       .then((artworks) =>
         this.setState({
@@ -33,13 +33,15 @@ class ArtList extends Component<Props, State> {
       <section className={classes.artList}>
         <SectionWrapper className={classes.wrapper}>
           <SectionHeader>Collection</SectionHeader>
-          <div className={classes.artListInner}>
-            {!this.state.arts ? (
-              <Loader />
-            ) : (
-              this.state.arts.map((art) => <ArtCard key={art.id} art={art} />)
-            )}
-          </div>
+          {!this.state.arts ? (
+            <Loader />
+          ) : (
+            <div className={classes.artListInner}>
+              {this.state.arts.map((art) => (
+                <ArtCard key={art.id} art={art} />
+              ))}
+            </div>
+          )}
         </SectionWrapper>
       </section>
     );
