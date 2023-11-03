@@ -1,15 +1,15 @@
 import classes from './style.module.scss';
-import { Component } from 'react';
+import { FC, ReactElement } from 'react';
 
-class Loader extends Component {
-  render() {
-    return (
-      <div className={classes.loader}>
-        <div className={classes.squareLoader}></div>
-        Loading...
-      </div>
-    );
-  }
-}
+type Props = unknown;
+
+const Loader: FC<Props> = (): ReactElement => {
+  return (
+    <div className={classes.loader}>
+      <div className={classes.squareLoader}></div>
+      Loading...
+    </div>
+  );
+};
 
 export default Loader;

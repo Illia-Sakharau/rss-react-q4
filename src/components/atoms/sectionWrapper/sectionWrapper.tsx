@@ -1,19 +1,17 @@
 import classes from './style.module.scss';
-import { Component } from 'react';
+import { FC, ReactElement } from 'react';
+
 type Props = {
   className?: string;
-  children: React.ReactElement | React.ReactElement[];
+  children: React.ReactNode;
 };
-type State = unknown;
 
-class SectionWrapper extends Component<Props, State> {
-  render() {
-    const className = this.props.className
-      ? classes.sectionWrapper + ' ' + this.props.className
-      : classes.sectionWrapper;
+const SectionWrapper: FC<Props> = (props): ReactElement => {
+  const className = props.className
+    ? classes.sectionWrapper + ' ' + props.className
+    : classes.sectionWrapper;
 
-    return <div className={className}>{this.props.children}</div>;
-  }
-}
+  return <div className={className}>{props.children}</div>;
+};
 
 export default SectionWrapper;

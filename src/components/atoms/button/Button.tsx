@@ -1,25 +1,22 @@
 import classes from './style.module.scss';
-import { Component, MouseEventHandler } from 'react';
+import { FC, MouseEventHandler, ReactElement } from 'react';
 
 type Props = {
-  children: string;
+  children: React.ReactNode;
   onClick: MouseEventHandler<HTMLButtonElement>;
   className?: string;
 };
-type State = unknown;
 
-class Button extends Component<Props, State> {
-  render() {
-    const className = this.props.className
-      ? classes.button + ' ' + this.props.className
-      : classes.button;
+const Button: FC<Props> = (props): ReactElement => {
+  const className = props.className
+    ? classes.button + ' ' + props.className
+    : classes.button;
 
-    return (
-      <button className={className} onClick={this.props.onClick}>
-        {this.props.children}
-      </button>
-    );
-  }
-}
+  return (
+    <button className={className} onClick={props.onClick}>
+      {props.children}
+    </button>
+  );
+};
 
 export default Button;

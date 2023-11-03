@@ -1,5 +1,5 @@
 import classes from './style.module.scss';
-import { ChangeEventHandler, Component } from 'react';
+import { ChangeEventHandler, FC, ReactElement } from 'react';
 
 type Props = {
   className?: string;
@@ -8,24 +8,21 @@ type Props = {
   placeholder?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 };
-type State = unknown;
 
-class Input extends Component<Props, State> {
-  render() {
-    const className = this.props.className
-      ? classes.input + ' ' + this.props.className
-      : classes.input;
+const Input: FC<Props> = (props): ReactElement => {
+  const className = props.className
+    ? classes.input + ' ' + props.className
+    : classes.input;
 
-    return (
-      <input
-        className={className}
-        type={this.props.type}
-        value={this.props.value}
-        placeholder={this.props.placeholder}
-        onChange={this.props.onChange}
-      />
-    );
-  }
-}
+  return (
+    <input
+      className={className}
+      type={props.type}
+      value={props.value}
+      placeholder={props.placeholder}
+      onChange={props.onChange}
+    />
+  );
+};
 
 export default Input;

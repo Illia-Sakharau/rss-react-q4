@@ -1,27 +1,24 @@
 import { Art } from '../../../types';
 import classes from './style.module.scss';
-import { Component } from 'react';
+import { FC, ReactElement } from 'react';
 
 type Props = {
   art: Art;
 };
-type State = unknown;
 
-class ArtCard extends Component<Props, State> {
-  render() {
-    return (
-      <div className={classes.artCard}>
-        <div className={classes.imageWrapper}>
-          <img src={this.props.art.imgURL} alt={this.props.art.imgAlt} />
-        </div>
-        <div className={classes.descriptionWrapper}>
-          <div className={classes.title}>{this.props.art.title}</div>
-          <div className={classes.artist}>{this.props.art.artist}</div>
-          <div className={classes.date}>{this.props.art.date}</div>
-        </div>
+const ArtCard: FC<Props> = ({ art }): ReactElement => {
+  return (
+    <div className={classes.artCard}>
+      <div className={classes.imageWrapper}>
+        <img src={art.imgURL} alt={art.imgAlt} />
       </div>
-    );
-  }
-}
+      <div className={classes.descriptionWrapper}>
+        <div className={classes.title}>{art.title}</div>
+        <div className={classes.artist}>{art.artist}</div>
+        <div className={classes.date}>{art.date}</div>
+      </div>
+    </div>
+  );
+};
 
 export default ArtCard;

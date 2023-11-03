@@ -1,22 +1,22 @@
 import classes from './style.module.scss';
-import { Component } from 'react';
+import { FC, ReactElement } from 'react';
 
 type SectionProps = {
   children: string;
   className?: string;
 };
-type SectionState = unknown;
 
-export class SectionHeader extends Component<SectionProps, SectionState> {
-  render() {
-    const className = this.props.className
-      ? classes.sectionHeader + ' ' + this.props.className
-      : classes.sectionHeader;
+export const SectionHeader: FC<SectionProps> = ({
+  children,
+  className,
+}): ReactElement => {
+  const finalClassName = className
+    ? classes.sectionHeader + ' ' + className
+    : classes.sectionHeader;
 
-    return (
-      <div className={className}>
-        <h3>{this.props.children}</h3>
-      </div>
-    );
-  }
-}
+  return (
+    <div className={finalClassName}>
+      <h3>{children}</h3>
+    </div>
+  );
+};
