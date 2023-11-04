@@ -6,6 +6,7 @@ import { Art } from '../../types';
 import ArtworksAPI from '../../API/GetCollection';
 import adapter from '../../utils/adapter';
 import Button from '../../components/atoms/button/Button';
+import { Outlet } from 'react-router-dom';
 
 type Props = unknown;
 
@@ -38,6 +39,7 @@ const Gallery: FC<Props> = (): ReactElement => {
     <div className={classes.page}>
       <Button onClick={() => setError(true)}>{`>>> ERROR BUTTON <<<`}</Button>
       <SearchBar action={handlerSearchButtonClick} />
+      <Outlet />
       <ArtList arts={arts} />
     </div>
   );
