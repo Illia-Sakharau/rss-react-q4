@@ -16,15 +16,18 @@ export default class ArtworksAPI {
     return responseData;
   }
 
-  static async getSearchArtworks(text: string): Promise<ResponseInfo> {
+  static async getSearchArtworks(
+    text: string,
+    count: number
+  ): Promise<ResponseInfo> {
     if (text !== '') {
       const response = await fetch(
-        `${ArtworksAPI.url}/search?q=${encodeURIComponent(text)}`
+        `${ArtworksAPI.url}/search?q=${encodeURIComponent(text)}&size=${count}`
       );
       const responseData = (await response.json()) as ResponseInfo;
       const artsIDs = responseData.data.map((artInfo) => artInfo.id);
       return await ArtworksAPI.getArtworks(artsIDs.length, 1, artsIDs);
     }
-    return await ArtworksAPI.getArtworks(10, 1);
+    return await ArtworksAPI.getArtworks(count, 1);
   }
 }

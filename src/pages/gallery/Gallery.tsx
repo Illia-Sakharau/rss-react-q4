@@ -7,19 +7,14 @@ import ArtworksAPI from '../../API/GetCollection';
 import adapter from '../../utils/adapter';
 import Button from '../../components/atoms/button/Button';
 import { Outlet } from 'react-router-dom';
+import { GalleyContext } from './context';
 
 type Props = unknown;
 
 const Gallery: FC<Props> = (): ReactElement => {
   const [arts, setArts] = useState<Art[] | undefined>(undefined);
   const [error, setError] = useState<boolean>(false);
-
-  useEffect(() => {
-    const text = localStorage.getItem('searchText') || '';
-    ArtworksAPI.getSearchArtworks(text)
-      .then((resp) => resp.data.map((artworkInfo) => adapter(artworkInfo)))
-      .then((artworks) => setArts(artworks));
-  }, []);
+  const [selectedArtNumber, setSelectedArtNumber] = useState('10');
 
   useEffect(() => {
     if (error) {
@@ -27,21 +22,36 @@ const Gallery: FC<Props> = (): ReactElement => {
     }
   }, [error]);
 
+  useEffect(() => {
+    const text = localStorage.getItem('searchText') || '';
+    setArts(undefined);
+    ArtworksAPI.getSearchArtworks(text, +selectedArtNumber)
+      .then((resp) => resp.data.map((artworkInfo) => adapter(artworkInfo)))
+      .then((artworks) => setArts(artworks));
+  }, [selectedArtNumber]);
+
   const handlerSearchButtonClick = (text: string) => {
     localStorage.setItem('searchText', text);
     setArts(undefined);
-    ArtworksAPI.getSearchArtworks(text)
+    ArtworksAPI.getSearchArtworks(text, +selectedArtNumber)
       .then((resp) => resp.data.map((artworkInfo) => adapter(artworkInfo)))
       .then((artworks) => setArts(artworks));
   };
 
   return (
-    <div className={classes.page}>
-      <Button onClick={() => setError(true)}>{`>>> ERROR BUTTON <<<`}</Button>
-      <SearchBar action={handlerSearchButtonClick} />
-      <Outlet />
-      <ArtList arts={arts} />
-    </div>
+    <GalleyContext.Provider
+      value={{
+        selectedArtNumber,
+        setSelectedArtNumber,
+      }}
+    >
+      <div className={classes.page}>
+        <Button onClick={() => setError(true)}>{`>>> ERROR BUTTON <<<`}</Button>
+        <SearchBar action={handlerSearchButtonClick} />
+        <Outlet />
+        <ArtList arts={arts} />
+      </div>
+    </GalleyContext.Provider>
   );
 };
 

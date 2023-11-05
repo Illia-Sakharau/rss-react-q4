@@ -1,4 +1,7 @@
 .sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
   color: var(--color-black);
   font-size: 48px;
 

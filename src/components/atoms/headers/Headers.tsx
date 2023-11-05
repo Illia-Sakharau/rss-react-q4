@@ -3,12 +3,14 @@ import { FC, ReactElement } from 'react';
 
 type SectionProps = {
   children: string;
+  additionalElems?: ReactElement;
   className?: string;
 };
 
 export const SectionHeader: FC<SectionProps> = ({
   children,
   className,
+  additionalElems,
 }): ReactElement => {
   const finalClassName = className
     ? classes.sectionHeader + ' ' + className
@@ -17,6 +19,7 @@ export const SectionHeader: FC<SectionProps> = ({
   return (
     <div className={finalClassName}>
       <h3>{children}</h3>
+      {!!additionalElems && additionalElems}
     </div>
   );
 };
