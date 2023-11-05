@@ -1,10 +1,16 @@
 import { FC, ReactElement } from 'react';
 import Gallery from './pages/gallery/Gallery';
 import Error from './pages/error/Error';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createHashRouter } from 'react-router-dom';
 import ArtAsideWidget from './components/organisms/artAsideWidget/artAsideWidget';
+import Home from './pages/home/Home';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
+  {
+    path: '/',
+    element: <Home />,
+    errorElement: <Error />,
+  },
   {
     path: '/gallery',
     element: <Gallery />,
