@@ -11,6 +11,9 @@ export default function (resp: ResponseArtworkInfo): Art {
     : noImg;
   const imgAlt = resp.thumbnail?.alt_text || 'without pictures';
 
+  const category = `${resp.category_titles}`;
+  const provenance = `${resp.provenance_text}`;
+
   return {
     id,
     title,
@@ -18,5 +21,8 @@ export default function (resp: ResponseArtworkInfo): Art {
     date,
     imgURL,
     imgAlt,
+
+    category,
+    provenance,
   };
 }

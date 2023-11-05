@@ -2,7 +2,7 @@
   position: fixed;
   display: flex;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   z-index: 100;
 }
 
@@ -32,6 +32,10 @@
 }
 
 .inner {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
   background: white;
   width: 360px;
 }

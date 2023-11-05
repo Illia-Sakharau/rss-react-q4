@@ -5,6 +5,9 @@ export type Art = {
   date: string;
   imgURL: string;
   imgAlt: string;
+
+  category: string;
+  provenance: string;
 };
 
 export type ResponseArtworkInfo = {
@@ -19,6 +22,9 @@ export type ResponseArtworkInfo = {
   date_display: string;
   artist_display: string;
   image_id: string;
+
+  category_titles: string;
+  provenance_text: string;
 };
 
 export type ResponseInfo = {

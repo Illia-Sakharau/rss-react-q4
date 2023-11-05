@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 // import classes from './style.module.scss';
 import { FC, ReactElement } from 'react';
 import AsideWidget from '../../molecules/asideWidget/asideWidget';
+import ArtDetails from '../../molecules/asideWidgetInners/ArtDetails';
 
 type Props = unknown;
 
@@ -15,7 +16,7 @@ const ArtAsideWidget: FC<Props> = (): ReactElement => {
         search: location.search,
       }}
     >
-      <div>ART {artID}</div>
+      <ArtDetails artID={`${artID}`} />
     </AsideWidget>
   );
 };
