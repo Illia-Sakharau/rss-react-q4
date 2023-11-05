@@ -8,6 +8,8 @@ import adapter from '../../utils/adapter';
 import Button from '../../components/atoms/button/Button';
 import { Outlet } from 'react-router-dom';
 import { GalleyContext } from './context';
+import Pagination from '../../components/molecules/pagination/Pagination';
+import SectionWrapper from '../../components/atoms/sectionWrapper/sectionWrapper';
 
 type Props = unknown;
 
@@ -15,7 +17,8 @@ const Gallery: FC<Props> = (): ReactElement => {
   const [arts, setArts] = useState<Art[] | undefined>(undefined);
   const [error, setError] = useState<boolean>(false);
   const [selectedArtNumber, setSelectedArtNumber] = useState('10');
-
+  const [currentPage, setCurrentPage] = useState('1');
+  const [totalPages, setTotalPages] = useState(1);
   useEffect(() => {
     if (error) {
       throw new Error('ERRORRRRR...');
@@ -25,16 +28,27 @@ const Gallery: FC<Props> = (): ReactElement => {
   useEffect(() => {
     const text = localStorage.getItem('searchText') || '';
     setArts(undefined);
-    ArtworksAPI.getSearchArtworks(text, +selectedArtNumber)
-      .then((resp) => resp.data.map((artworkInfo) => adapter(artworkInfo)))
+    ArtworksAPI.getSearchArtworks(text, +selectedArtNumber, +currentPage)
+      .then((resp) => {
+        setTotalPages(resp.pagination.total_pages);
+        return resp.data.map((artworkInfo) => adapter(artworkInfo));
+      })
       .then((artworks) => setArts(artworks));
+  }, [selectedArtNumber, currentPage]);
+
+  useEffect(() => {
+    setCurrentPage('1');
   }, [selectedArtNumber]);
 
   const handlerSearchButtonClick = (text: string) => {
     localStorage.setItem('searchText', text);
     setArts(undefined);
-    ArtworksAPI.getSearchArtworks(text, +selectedArtNumber)
-      .then((resp) => resp.data.map((artworkInfo) => adapter(artworkInfo)))
+    setCurrentPage('1');
+    ArtworksAPI.getSearchArtworks(text, +selectedArtNumber, +currentPage)
+      .then((resp) => {
+        setTotalPages(resp.pagination.total_pages);
+        return resp.data.map((artworkInfo) => adapter(artworkInfo));
+      })
       .then((artworks) => setArts(artworks));
   };
 
@@ -50,6 +64,14 @@ const Gallery: FC<Props> = (): ReactElement => {
         <SearchBar action={handlerSearchButtonClick} />
         <Outlet />
         <ArtList arts={arts} />
+        <SectionWrapper className={classes.pagination}>
+          <Pagination
+            totalPages={totalPages}
+            defaultText={'Page'}
+            currentPage={+currentPage}
+            onChange={setCurrentPage}
+          />
+        </SectionWrapper>
       </div>
     </GalleyContext.Provider>
   );

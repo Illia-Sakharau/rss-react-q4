@@ -18,16 +18,25 @@ export default class ArtworksAPI {
 
   static async getSearchArtworks(
     text: string,
-    count: number
+    count: number,
+    page: number
   ): Promise<ResponseInfo> {
     if (text !== '') {
+      const q = encodeURIComponent(text);
+      const size = count;
+      const from = count * (page - 1);
       const response = await fetch(
-        `${ArtworksAPI.url}/search?q=${encodeURIComponent(text)}&size=${count}`
+        `${ArtworksAPI.url}/search?q=${q}&size=${size}&from=${from}`
       );
       const responseData = (await response.json()) as ResponseInfo;
       const artsIDs = responseData.data.map((artInfo) => artInfo.id);
-      return await ArtworksAPI.getArtworks(artsIDs.length, 1, artsIDs);
+      const artsInfo = await ArtworksAPI.getArtworks(
+        artsIDs.length,
+        1,
+        artsIDs
+      );
+      return { ...artsInfo, pagination: responseData.pagination };
     }
-    return await ArtworksAPI.getArtworks(count, 1);
+    return await ArtworksAPI.getArtworks(count, page);
   }
 }
