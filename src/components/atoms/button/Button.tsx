@@ -4,6 +4,7 @@ import { FC, MouseEventHandler, ReactElement } from 'react';
 type Props = {
   children: React.ReactNode;
   onClick: MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
   className?: string;
 };
 
@@ -13,7 +14,11 @@ const Button: FC<Props> = (props): ReactElement => {
     : classes.button;
 
   return (
-    <button className={className} onClick={props.onClick}>
+    <button
+      className={className}
+      onClick={props.onClick}
+      disabled={props.disabled}
+    >
       {props.children}
     </button>
   );

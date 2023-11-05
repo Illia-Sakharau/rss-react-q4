@@ -12,4 +12,8 @@
     cursor: pointer;
     background: black;
   }
+  &:disabled {
+    cursor: not-allowed;
+    background: #555;
+  }
 }
