@@ -13,9 +13,8 @@ type Props = {
 };
 
 const ArtList: FC<Props> = ({ arts }): ReactElement => {
-  const { selectedArtNumber, setSelectedArtNumber } = useContext(
-    GalleyContext
-  ) as IGalleryContext;
+  const { selectedArtNumber, setSelectedArtNumber, setCurrentPage } =
+    useContext(GalleyContext) as IGalleryContext;
   return (
     <section className={classes.artList}>
       <SectionWrapper className={classes.wrapper}>
@@ -29,7 +28,10 @@ const ArtList: FC<Props> = ({ arts }): ReactElement => {
                 { value: '20', text: '20 arts' },
               ]}
               value={selectedArtNumber}
-              onChange={setSelectedArtNumber}
+              onChange={(value: string) => {
+                setCurrentPage('1');
+                setSelectedArtNumber(value);
+              }}
             />
           }
         >
