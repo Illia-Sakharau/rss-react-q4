@@ -1,0 +1,18 @@
+.artList {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  height: 100%;
+}
+
+.artListInner {
+  columns: 4 300px;
+  gap: 32px;
+}

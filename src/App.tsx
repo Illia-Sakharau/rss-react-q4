@@ -1,0 +1,33 @@
+import { FC, ReactElement } from 'react';
+import Gallery from './pages/gallery/Gallery';
+import Error from './pages/error/Error';
+import { RouterProvider, createHashRouter } from 'react-router-dom';
+import ArtAsideWidget from './components/organisms/artAsideWidget/artAsideWidget';
+import Home from './pages/home/Home';
+
+const router = createHashRouter([
+  {
+    path: '/',
+    element: <Home />,
+    errorElement: <Error />,
+  },
+  {
+    path: '/gallery',
+    element: <Gallery />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: '/gallery/:artID',
+        element: <ArtAsideWidget />,
+      },
+    ],
+  },
+]);
+
+type Props = unknown;
+
+const App: FC<Props> = (): ReactElement => {
+  return <RouterProvider router={router} />;
+};
+
+export default App;
