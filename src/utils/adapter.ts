@@ -12,7 +12,8 @@ export default function (resp: ResponseArtworkInfo): Art {
   const imgAlt = resp.thumbnail?.alt_text || 'without pictures';
 
   const category = `${resp.category_titles}`;
-  const provenance = `${resp.provenance_text}`;
+  const provenance =
+    resp.provenance_text === null ? 'No data' : `${resp.provenance_text}`;
 
   return {
     id,
