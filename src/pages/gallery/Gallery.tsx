@@ -65,7 +65,7 @@ const Gallery: FC<Props> = (): ReactElement => {
       : localStorage.getItem('searchText') || '';
     requestActions(text);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage]);
+  }, [currentPage, selectedArtNumber]);
 
   const handlerSearchButtonClick = (text: string) => {
     localStorage.setItem('searchText', text);
