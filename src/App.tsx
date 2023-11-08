@@ -4,21 +4,32 @@ import Error from './pages/error/Error';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import ArtAsideWidget from './components/organisms/artAsideWidget/artAsideWidget';
 import Home from './pages/home/Home';
+import RootLayout from './pages/rootLayout/RootLayout';
+import NotFound from './pages/notFound/NotFound';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
-    errorElement: <Error />,
-  },
-  {
-    path: '/gallery',
-    element: <Gallery />,
+    element: <RootLayout />,
     errorElement: <Error />,
     children: [
       {
-        path: '/gallery/:artID',
-        element: <ArtAsideWidget />,
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: '/gallery',
+        element: <Gallery />,
+        children: [
+          {
+            path: '/gallery/:artID',
+            element: <ArtAsideWidget />,
+          },
+        ],
+      },
+      {
+        path: '*',
+        element: <NotFound />,
       },
     ],
   },
