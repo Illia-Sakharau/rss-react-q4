@@ -10,6 +10,8 @@ describe('Test describe', () => {
 
   it('Second test', () => {
     render(<SectionHeader>Test text</SectionHeader>);
-    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent('123');
+    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+      'Test text'
+    );
   });
 });
