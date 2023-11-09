@@ -1,15 +1,26 @@
 import classes from './style.module.scss';
 import { FC, ReactElement } from 'react';
-import { SectionHeader } from '../../components/atoms/headers/Headers';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Button from '../../components/atoms/button/Button';
 
 type Props = unknown;
 
 const NotFound: FC<Props> = (): ReactElement => {
+  const navigate = useNavigate();
+
   return (
     <div className={classes.page}>
-      <SectionHeader>Page Not Found</SectionHeader>
-      <Link to={'/'}>Home</Link>
+      <div className={classes.message}>
+        <div className={classes.code}>404</div>
+        <div className={classes.text}>Page Not Found</div>
+      </div>
+      <Button
+        onClick={() => {
+          navigate('/');
+        }}
+      >
+        Go Home
+      </Button>
     </div>
   );
 };
