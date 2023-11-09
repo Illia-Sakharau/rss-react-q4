@@ -1,0 +1,22 @@
+.logo {
+  position: relative;
+
+  & > h1 {
+    font-family: serif;
+    font-size: 32px;
+    line-height: 32px;
+    background-color: white;
+    color: black;
+    margin-left: 20px;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    width: 40px;
+    height: 40px;
+    border: solid 1.5px black;
+    z-index: -1;
+  }
+}

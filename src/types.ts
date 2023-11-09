@@ -38,3 +38,8 @@ export type ResponseInfo = {
   };
   data: ResponseArtworkInfo[];
 };
+
+export type linkInfo = {
+  to: string;
+  text: string;
+};
