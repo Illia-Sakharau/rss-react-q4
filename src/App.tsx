@@ -2,7 +2,7 @@ import { FC, ReactElement } from 'react';
 import Gallery from './pages/gallery/Gallery';
 import Error from './pages/error/Error';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import ArtAsideWidget from './components/organisms/ArtAsideWidget/artAsideWidget';
+import ArtAsideWidget from './components/organisms/ArtAsideWidget/ArtAsideWidget';
 import Home from './pages/home/Home';
 import RootLayout from './pages/rootLayout/RootLayout';
 import NotFound from './pages/notFound/NotFound';
