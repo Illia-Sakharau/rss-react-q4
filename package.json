@@ -9,7 +9,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format:fix": "prettier --write .",
     "preview": "vite preview",
-    "prepare": "husky install",
+    "prepare": "husky install | chmod ug+x .husky/*",
     "deploy": "gh-pages -d dist",
     "test": "vitest run --coverage",
     "pre-push": "vitest run"
