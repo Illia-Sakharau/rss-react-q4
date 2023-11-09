@@ -1,5 +1,4 @@
 import { GalleyContext, IGalleryContext } from '../../../pages/gallery/context';
-import { Art } from '../../../types';
 import { SectionHeader } from '../../atoms/headers/Headers';
 import Loader from '../../atoms/loader/Loader';
 import SectionWrapper from '../../atoms/sectionWrapper/sectionWrapper';
@@ -8,12 +7,10 @@ import ArtCard from '../../molecules/artCard/ArtCard';
 import classes from './style.module.scss';
 import { FC, ReactElement, useContext } from 'react';
 
-type Props = {
-  arts: Art[] | undefined;
-};
+type Props = unknown;
 
-const ArtList: FC<Props> = ({ arts }): ReactElement => {
-  const { selectedArtNumber, setSelectedArtNumber, setCurrentPage } =
+const ArtList: FC<Props> = (): ReactElement => {
+  const { selectedArtNumber, setSelectedArtNumber, setCurrentPage, arts } =
     useContext(GalleyContext) as IGalleryContext;
   return (
     <section className={classes.artList}>

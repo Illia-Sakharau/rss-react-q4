@@ -81,13 +81,14 @@ const Gallery: FC<Props> = (): ReactElement => {
         setCurrentPage,
         searchText,
         setSearchText,
+        arts,
       }}
     >
       <div className={classes.page}>
         <Button onClick={() => setError(true)}>{`>>> ERROR BUTTON <<<`}</Button>
         <SearchBar action={handlerSearchButtonClick} />
         <Outlet />
-        <ArtList arts={arts} />
+        <ArtList />
         <SectionWrapper className={classes.pagination}>
           <Pagination
             totalPages={totalPages}

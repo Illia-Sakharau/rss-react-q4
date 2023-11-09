@@ -1,20 +1,17 @@
-import { GalleyContext, IGalleryContext } from '../../../pages/gallery/context';
 import Button from '../../atoms/button/Button';
 import Input from '../../atoms/input/Input';
 import classes from './style.module.scss';
-import { ChangeEvent, FC, ReactElement, useContext } from 'react';
+import { ChangeEvent, FC, ReactElement } from 'react';
 
 type Props = {
   action: (text: string) => void;
+  searchText: string;
+  setSearchText: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const MSearchBar: FC<Props> = (props): ReactElement => {
-  const { searchText, setSearchText } = useContext(
-    GalleyContext
-  ) as IGalleryContext;
-
   const handleSearchTextChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
+    props.setSearchText(e.target.value);
   };
 
   return (
@@ -24,9 +21,9 @@ const MSearchBar: FC<Props> = (props): ReactElement => {
         placeholder="Type art name, artist or date..."
         className={classes.input}
         onChange={handleSearchTextChange}
-        value={searchText}
+        value={props.searchText}
       />
-      <Button onClick={() => props.action(searchText)}>Search</Button>
+      <Button onClick={() => props.action(props.searchText)}>Search</Button>
     </div>
   );
 };
