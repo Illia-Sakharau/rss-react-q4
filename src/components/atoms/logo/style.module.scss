@@ -1,5 +1,7 @@
 .logo {
   position: relative;
+  transform-style: preserve-3d;
+  margin: 8px 0;
 
   & > h1 {
     font-family: serif;
@@ -17,6 +19,6 @@
     width: 40px;
     height: 40px;
     border: solid 1.5px black;
-    z-index: -1;
+    transform: translateZ(-1px);
   }
 }

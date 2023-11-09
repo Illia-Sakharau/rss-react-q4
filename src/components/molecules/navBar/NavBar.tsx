@@ -5,12 +5,17 @@ import { linkInfo } from '../../../types';
 
 type Props = {
   linksInBar: linkInfo[];
+  className?: string;
 };
 
-const NavBar: FC<Props> = ({ linksInBar }): ReactElement => {
+const NavBar: FC<Props> = (props): ReactElement => {
+  const className = props.className
+    ? classes.navBar + ' ' + props.className
+    : classes.navBar;
+
   return (
-    <nav className={classes.navBar}>
-      {linksInBar.map((linkInfo) => (
+    <nav className={className}>
+      {props.linksInBar.map((linkInfo) => (
         <NavLink
           to={linkInfo.to}
           className={({ isActive }) => (isActive ? classes.active : '')}
