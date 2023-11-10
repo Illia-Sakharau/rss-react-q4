@@ -12,6 +12,8 @@ describe('Button', () => {
         onClick={() => {
           testData = testText;
         }}
+        disabled={false}
+        className="test"
       >
         {testText}
       </Button>
