@@ -11,7 +11,11 @@ const SectionWrapper: FC<Props> = (props): ReactElement => {
     ? classes.sectionWrapper + ' ' + props.className
     : classes.sectionWrapper;
 
-  return <div className={className}>{props.children}</div>;
+  return (
+    <div className={className} data-testid="section-wrapper">
+      {props.children}
+    </div>
+  );
 };
 
 export default SectionWrapper;

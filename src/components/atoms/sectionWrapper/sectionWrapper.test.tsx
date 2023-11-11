@@ -3,20 +3,22 @@ import { render, screen } from '@testing-library/react';
 import SectionWrapper from './sectionWrapper';
 
 describe('Input', () => {
-  const testText = 'Test text';
-  const testClassName = 'test-class';
+  const textTest = 'test child';
+  const childrenTest = <div data-testid="test">TEST</div>;
+  const classNameTest = 'test-class';
 
-  beforeEach(() => {
+  it('Have passed className and child', () => {
     render(
-      <SectionWrapper className={testClassName}>{testText}</SectionWrapper>
+      <SectionWrapper className={classNameTest}>{childrenTest}</SectionWrapper>
     );
+
+    expect(screen.getByTestId('test')).toHaveTextContent('TEST');
+    expect(screen.getByTestId('section-wrapper')).toHaveClass(classNameTest);
   });
 
-  it('Children', () => {
-    expect(screen.getByText(testText)).toBeInTheDocument();
-  });
+  it('Works without unnecessary props', () => {
+    render(<SectionWrapper>{textTest}</SectionWrapper>);
 
-  it('Class name', () => {
-    expect(screen.getByText(testText)).toHaveClass(testClassName);
+    expect(screen.getByText(textTest)).toBeInTheDocument();
   });
 });
