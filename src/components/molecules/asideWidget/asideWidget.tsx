@@ -12,7 +12,7 @@ type Props = {
 
 const AsideWidget: FC<Props> = (props): ReactElement => {
   return (
-    <div className={classes.asideWidget}>
+    <div className={classes.asideWidget} data-testid={'aside-widget'}>
       <Link to={props.linkFrom} className={classes.dimmer}></Link>
 
       <div className={classes.inner}>
