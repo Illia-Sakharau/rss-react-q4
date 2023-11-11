@@ -1,10 +1,11 @@
 import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import Logo from './Logo';
 import { MemoryRouter } from 'react-router-dom';
+import * as TEST_DATA from '../../../test/testData';
+import Logo from './Logo';
 
 describe('Logo', () => {
-  const classNameTest = 'test-class';
+  const classNameTest = TEST_DATA.className;
 
   it('Have passed className', () => {
     render(

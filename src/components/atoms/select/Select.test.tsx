@@ -1,5 +1,6 @@
 import { describe, it } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
+import * as TEST_DATA from '../../../test/testData';
 import Select from './Select';
 
 describe('Input', () => {
@@ -17,10 +18,10 @@ describe('Input', () => {
       text: 'Option 3',
     },
   ];
-  const defaultTextTest = 'Test default text';
+  const defaultTextTest = TEST_DATA.text;
   const valueTest = optionsTest[1].value;
   const onChangeTest = vi.fn();
-  const classNameTest = 'test-class';
+  const classNameTest = TEST_DATA.className;
 
   it('Have passed value, options, className and onChange work', () => {
     render(

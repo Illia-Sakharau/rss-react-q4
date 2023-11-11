@@ -1,10 +1,11 @@
 import { describe, it } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
+import * as TEST_DATA from '../../../test/testData';
 import Button from './Button';
 
 describe('Button', () => {
-  const testText = 'Test text';
-  const testClassName = 'test-class';
+  const testText = TEST_DATA.text;
+  const testClassName = TEST_DATA.className;
   const onClickTest = vi.fn();
 
   it('Have passed text and class, disabled', () => {
