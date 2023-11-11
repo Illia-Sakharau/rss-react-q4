@@ -18,7 +18,7 @@ const Select: FC<Props> = (props): ReactElement => {
     : classes.select;
 
   return (
-    <div className={className}>
+    <div className={className} data-testid="select-wrapper">
       <select
         value={props.value}
         onChange={(event) => props.onChange(event.target.value)}
