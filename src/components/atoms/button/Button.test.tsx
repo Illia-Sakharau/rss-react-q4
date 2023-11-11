@@ -4,31 +4,27 @@ import Button from './Button';
 
 describe('Button', () => {
   const testText = 'Test text';
-  let testData = '';
+  const testClassName = 'test-class';
+  const onClickTest = vi.fn();
 
-  beforeEach(() => {
+  it('Have passed text and class, disabled', () => {
     render(
-      <Button
-        onClick={() => {
-          testData = testText;
-        }}
-        disabled={false}
-        className="test"
-      >
+      <Button onClick={() => {}} disabled={true} className={testClassName}>
         {testText}
       </Button>
     );
-  });
-
-  it('Text correct', () => {
     expect(screen.getByRole('button')).toHaveTextContent(testText);
   });
 
   it('onClick work', () => {
-    const buttonEl = screen.getByRole('button');
+    render(<Button onClick={onClickTest}>{testText}</Button>);
+    expect(onClickTest).toHaveBeenCalledTimes(0);
+    fireEvent.click(screen.getByRole('button'));
+    expect(onClickTest).toHaveBeenCalledTimes(1);
+  });
 
-    expect(testData).toBe('');
-    fireEvent.click(buttonEl);
-    expect(testData).toBe(testText);
+  it('Work without className', () => {
+    render(<Button onClick={() => {}}>{testText}</Button>);
+    expect(screen.getByRole('button')).toBeInTheDocument();
   });
 });
