@@ -1,33 +1,38 @@
 import { describe, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import Input from './Input';
 
 describe('Input', () => {
-  const testValue = 'Test value';
-  const testPlaceholder = 'Test placeholder';
-  const testClassName = 'test-class';
+  const classNameTest = 'test-class';
+  const typeTest = 'text';
+  const valueTest = 'Test value';
+  const placeholderTest = 'Test placeholder';
+  const onChangeTest = vi.fn();
 
-  beforeEach(() => {
+  it('Have passed value, placeholder, className and additional element', () => {
     render(
       <Input
-        type="text"
-        value={testValue}
-        placeholder={testPlaceholder}
-        className={testClassName}
+        type={typeTest}
+        value={valueTest}
+        placeholder={placeholderTest}
+        className={classNameTest}
+        onChange={onChangeTest}
       />
     );
-  });
 
-  it('Value', () => {
     const inputEl = screen.getByRole('textbox');
-    expect(inputEl).toHaveValue(testValue);
+
+    expect(inputEl).toHaveValue(valueTest);
+    expect(screen.getByPlaceholderText(placeholderTest)).toBeInTheDocument();
+    expect(inputEl).toHaveClass(classNameTest);
+
+    fireEvent.change(inputEl, { target: { value: '123' } });
+    expect(onChangeTest).toHaveBeenCalledTimes(1);
   });
 
-  it('Placeholder', () => {
-    expect(screen.getByPlaceholderText(testPlaceholder)).toBeInTheDocument();
-  });
+  it('Works without unnecessary props', () => {
+    render(<Input type={typeTest} value={valueTest} />);
 
-  it('Class name', () => {
-    expect(screen.getByRole('textbox')).toHaveClass(testClassName);
+    expect(screen.getByRole('textbox')).toBeInTheDocument();
   });
 });
