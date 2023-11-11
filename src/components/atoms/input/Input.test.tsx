@@ -9,7 +9,7 @@ describe('Input', () => {
   const placeholderTest = 'Test placeholder';
   const onChangeTest = vi.fn();
 
-  it('Have passed value, placeholder, className and additional element', () => {
+  it('Have passed value, placeholder, className and onChance work', () => {
     render(
       <Input
         type={typeTest}

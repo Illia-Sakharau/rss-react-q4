@@ -4,21 +4,25 @@ import Logo from './Logo';
 import { MemoryRouter } from 'react-router-dom';
 
 describe('Logo', () => {
-  const testClassName = 'test-class';
+  const classNameTest = 'test-class';
 
-  beforeEach(() => {
+  it('Have passed className', () => {
     render(
       <MemoryRouter>
-        <Logo className={testClassName} />
+        <Logo className={classNameTest} />
       </MemoryRouter>
     );
-  });
-
-  it('Have text', () => {
     expect(screen.getByText('exhi')).toBeInTheDocument();
+    expect(screen.getByRole('link')).toHaveClass(classNameTest);
   });
 
-  it('Have passed class', () => {
-    expect(screen.getByRole('link')).toHaveClass(testClassName);
+  it('Works without unnecessary props', () => {
+    render(
+      <MemoryRouter>
+        <Logo />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByText('exhi')).toBeInTheDocument();
   });
 });
