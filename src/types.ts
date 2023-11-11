@@ -13,18 +13,18 @@ export type Art = {
 export type ResponseArtworkInfo = {
   id: number;
   title: string;
-  thumbnail: {
-    lqip: string;
-    width: number;
-    height: number;
-    alt_text: string;
+  thumbnail?: {
+    lqip?: string;
+    width?: number;
+    height?: number;
+    alt_text?: string;
   };
   date_display: string;
   artist_display: string;
-  image_id: string;
+  image_id?: string;
 
   category_titles: string;
-  provenance_text: string;
+  provenance_text?: string;
 };
 
 export type ResponseInfo = {
