@@ -17,7 +17,7 @@ export const SectionHeader: FC<SectionProps> = ({
     : classes.sectionHeader;
 
   return (
-    <div className={finalClassName}>
+    <div className={finalClassName} data-testid="section-header-wrapper">
       <h3>{children}</h3>
       {!!additionalElems && additionalElems}
     </div>
