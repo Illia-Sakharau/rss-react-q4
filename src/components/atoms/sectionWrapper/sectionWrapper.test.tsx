@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import * as TEST_DATA from '../../../test/testData';
 import SectionWrapper from './sectionWrapper';
 
-describe('Input', () => {
+describe('Section wrapper', () => {
   const textTest = TEST_DATA.text;
   const childrenTest = <TEST_DATA.element.reactEl />;
   const classNameTest = TEST_DATA.className;

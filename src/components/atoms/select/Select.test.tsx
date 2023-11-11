@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import * as TEST_DATA from '../../../test/testData';
 import Select from './Select';
 
-describe('Input', () => {
+describe('Select', () => {
   const optionsTest = [
     {
       value: 'val1',
