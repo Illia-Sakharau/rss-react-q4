@@ -13,7 +13,7 @@ const Error: FC<Props> = (): ReactElement => {
   return (
     <div className={classes.page}>
       <SectionHeader>Error Page</SectionHeader>
-      <Button onClick={reloadHandler}> Reload page </Button>
+      <Button onClick={reloadHandler}>Reload page</Button>
     </div>
   );
 };
