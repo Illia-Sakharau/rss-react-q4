@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import * as TEST_DATA from '../../../test/testData';
 import RowInfo from './RowInfo';
 
-describe('Section wrapper', () => {
+describe('Row info for aside inner', () => {
   const titleTest = TEST_DATA.title;
   const textTest = TEST_DATA.text;
   const classNameTest = TEST_DATA.className;

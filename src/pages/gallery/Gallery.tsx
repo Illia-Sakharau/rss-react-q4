@@ -92,6 +92,7 @@ const Gallery: FC<Props> = (): ReactElement => {
         <SectionWrapper className={classes.pagination}>
           <Pagination
             totalPages={totalPages}
+            itemsOnPage={selectedArtNumber}
             defaultText={'Page'}
             currentPage={+currentPage}
             onChange={setCurrentPage}

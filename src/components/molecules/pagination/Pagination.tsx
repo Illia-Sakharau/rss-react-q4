@@ -1,27 +1,26 @@
-import { GalleyContext, IGalleryContext } from '../../../pages/gallery/context';
 import Button from '../../atoms/button/Button';
 import Select from '../../atoms/select/Select';
 import classes from './style.module.scss';
-import { FC, ReactElement, useContext } from 'react';
+import { FC, ReactElement } from 'react';
 
 type Props = {
   currentPage: number;
   totalPages: number;
+  itemsOnPage: string;
   onChange: React.Dispatch<React.SetStateAction<string>>;
   defaultText?: string;
   className?: string;
 };
 
 const Pagination: FC<Props> = (props): ReactElement => {
-  const { selectedArtNumber } = useContext(GalleyContext) as IGalleryContext;
   const className = props.className
     ? classes.pagination + ' ' + props.className
     : classes.pagination;
 
-  const maxPage = Math.min(props.totalPages, 900 / +selectedArtNumber);
+  const maxPage = Math.min(props.totalPages, 900 / +props.itemsOnPage);
 
   return (
-    <div className={className}>
+    <div className={className} data-testid="pagination">
       <Button
         onClick={() => props.onChange('1')}
         disabled={props.currentPage === 1}
