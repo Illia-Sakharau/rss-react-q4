@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 import { Art, ResponseArtworkInfo } from '../types';
 import noImg from '../assets/no-img.svg';
+import { IGalleryContext } from '../pages/gallery/context';
 
 type Element = {
   id: string;
@@ -136,3 +137,13 @@ export const preparedArtworksInfo: Art[] = [
     provenance: 'provance 5',
   },
 ];
+
+export const galleyContextTestData: IGalleryContext = {
+  arts: preparedArtworksInfo,
+  selectedArtNumber: '10',
+  setSelectedArtNumber: vi.fn() as React.Dispatch<React.SetStateAction<string>>,
+  setCurrentPage: vi.fn() as React.Dispatch<React.SetStateAction<string>>,
+
+  searchText: 'Search text',
+  setSearchText: vi.fn() as React.Dispatch<React.SetStateAction<string>>,
+};
