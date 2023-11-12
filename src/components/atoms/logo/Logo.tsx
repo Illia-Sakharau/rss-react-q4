@@ -12,7 +12,7 @@ const Logo: FC<Props> = (props): ReactElement => {
     : classes.logo;
 
   return (
-    <Link to="/" className={className}>
+    <Link to="/" className={className} data-testid="logo">
       <h1>exhi</h1>
     </Link>
   );
