@@ -1,0 +1,40 @@
+.navBar {
+  display: flex;
+  gap: 20px;
+
+  & > a {
+    position: relative;
+    font-family: sans-serif;
+    font-size: 20px;
+    color: var(--color-black);
+    background-color: white;
+    transform-style: preserve-3d;
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: -2px;
+      width: calc(100% + 0px);
+      height: 0px;
+      border: solid 1.5px white;
+      transform: translateZ(-1px);
+      transition: all 0.25s;
+    }
+
+    &:hover {
+      &::before {
+        left: -10px;
+        width: calc(100% + 16px);
+        height: calc(100% + 6px);
+        border: solid 1.5px black;
+      }
+    }
+
+    &.active {
+      &::before {
+        border: solid 1.5px black;
+      }
+    }
+  }
+}
