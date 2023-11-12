@@ -23,7 +23,7 @@ const Home: FC<Props> = (): ReactElement => {
       >{`>>> ERROR BUTTON <<<`}</Button>
       <div className={classes.page}>
         <SectionHeader>Home Page</SectionHeader>
-        <Link to={'/gallery'}>Gallery</Link>
+        <Link to={'/404'}>404</Link>
       </div>
     </>
   );
