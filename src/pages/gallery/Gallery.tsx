@@ -5,7 +5,6 @@ import { FC, ReactElement, useEffect, useState } from 'react';
 import { Art } from '../../types';
 import ArtworksAPI from '../../API/GetCollection';
 import adapter from '../../utils/adapter';
-import Button from '../../components/atoms/button/Button';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import { GalleyContext } from './context';
 import Pagination from '../../components/molecules/pagination/Pagination';
@@ -16,7 +15,6 @@ type Props = unknown;
 const Gallery: FC<Props> = (): ReactElement => {
   const [pageParams, setPageParams] = useSearchParams();
   const [arts, setArts] = useState<Art[] | undefined>(undefined);
-  const [error, setError] = useState<boolean>(false);
   const [selectedArtNumber, setSelectedArtNumber] = useState(
     pageParams.get('limit') ? `${pageParams.get('limit')}` : '10'
   );
@@ -54,12 +52,6 @@ const Gallery: FC<Props> = (): ReactElement => {
   };
 
   useEffect(() => {
-    if (error) {
-      throw new Error('ERRORRRRR...');
-    }
-  }, [error]);
-
-  useEffect(() => {
     const text = pageParams.get('search')
       ? `${pageParams.get('search')}`
       : localStorage.getItem('searchText') || '';
@@ -85,7 +77,6 @@ const Gallery: FC<Props> = (): ReactElement => {
       }}
     >
       <div className={classes.page}>
-        <Button onClick={() => setError(true)}>{`>>> ERROR BUTTON <<<`}</Button>
         <SearchBar action={handlerSearchButtonClick} />
         <Outlet />
         <ArtList />

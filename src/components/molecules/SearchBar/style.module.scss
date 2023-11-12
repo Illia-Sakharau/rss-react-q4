@@ -1,5 +1,6 @@
 .searchBar {
   display: flex;
+  border: solid 1.5px #fff;
 
   @media (max-width: 590px) {
     flex-direction: column;
@@ -9,4 +10,5 @@
 
 .input {
   flex: 1 1;
+  border: none;
 }
