@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import Error from './Error';
 import userEvent from '@testing-library/user-event';
 
-describe('Loader', () => {
+describe('Error page', () => {
   it('Have text and reload button', async () => {
     render(<Error />);
 
