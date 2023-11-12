@@ -37,6 +37,8 @@ const ArtList: FC<Props> = (): ReactElement => {
 
         {!arts ? (
           <Loader />
+        ) : arts.length === 0 ? (
+          <div>No matches found</div>
         ) : (
           <div className={classes.artListInner}>
             {arts.map((art) => (
