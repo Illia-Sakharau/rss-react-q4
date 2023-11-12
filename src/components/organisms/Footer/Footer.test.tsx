@@ -1,16 +1,16 @@
 import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { Outlet, RouterProvider, createMemoryRouter } from 'react-router-dom';
-import Header from './Header';
 import userEvent from '@testing-library/user-event';
+import Footer from './Footer';
 
-describe('Header', () => {
+describe('Footer', () => {
   const routes = [
     {
       path: '/',
       element: (
         <div>
-          <Header />
+          <Footer />
           <Outlet />
         </div>
       ),
@@ -43,10 +43,14 @@ describe('Header', () => {
     const galleryLinkEl = screen.getByRole('link', {
       name: 'Gallery',
     }) as HTMLLinkElement;
+    const rssLogo = screen.getByAltText('The Rolling Scopes School');
+    const aicLogo = screen.getByAltText('The Art Institute of Chicago');
 
     expect(logoEl).toBeInTheDocument();
     expect(homeLinkEl).toBeInTheDocument();
     expect(galleryLinkEl).toBeInTheDocument();
+    expect(rssLogo).toBeInTheDocument();
+    expect(aicLogo).toBeInTheDocument();
 
     await userEvent.click(galleryLinkEl);
     expect(router.state.location.pathname).toBe('/gallery');

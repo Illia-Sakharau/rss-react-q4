@@ -6,7 +6,7 @@ import { MemoryRouter } from 'react-router-dom';
 
 const triger = vi.fn();
 vi.mock('react-router-dom', async () => {
-  const actual = await vi.importActual('react-router-dom');
+  const actual = (await vi.importActual('react-router-dom')) as object;
 
   return {
     ...actual,
