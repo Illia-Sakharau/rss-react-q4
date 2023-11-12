@@ -11,7 +11,7 @@ const ArtAsideWidget: FC<Props> = (): ReactElement => {
   return (
     <AsideWidget
       linkFrom={{
-        pathname: `/gallery`,
+        pathname: `/${location.pathname.split('/').reverse()[1]}`,
         search: location.search,
       }}
     >

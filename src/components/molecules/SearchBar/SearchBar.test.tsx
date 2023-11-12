@@ -21,7 +21,7 @@ const WrapperWithState: FC = (): ReactElement => {
   );
 };
 
-describe('Pagination', () => {
+describe('Serch bar', () => {
   it('There is a working input and a button', async () => {
     render(<WrapperWithState />);
 
