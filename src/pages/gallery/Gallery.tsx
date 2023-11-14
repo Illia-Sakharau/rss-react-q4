@@ -9,6 +9,8 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 import { GalleyContext } from './context';
 import Pagination from '../../components/molecules/pagination/Pagination';
 import SectionWrapper from '../../components/atoms/sectionWrapper/sectionWrapper';
+import { useAppDispatch } from '../../hooks/redux';
+import { gallerySlice } from '../../store/reducers/GallarySlice';
 
 type Props = unknown;
 
@@ -21,12 +23,9 @@ const Gallery: FC<Props> = (): ReactElement => {
   const [currentPage, setCurrentPage] = useState(
     pageParams.get('page') ? `${pageParams.get('page')}` : '1'
   );
-  const [searchText, setSearchText] = useState<string>(
-    pageParams.get('search')
-      ? `${pageParams.get('search')}`
-      : localStorage.getItem('searchText') || ''
-  );
   const [totalPages, setTotalPages] = useState(1);
+  const { setSearchText } = gallerySlice.actions;
+  const dispatch = useAppDispatch();
 
   const requestActions = (text: string) => {
     const queryParam: {
@@ -52,6 +51,14 @@ const Gallery: FC<Props> = (): ReactElement => {
   };
 
   useEffect(() => {
+    const searchTextByUrl = pageParams.get('search');
+    if (!!searchTextByUrl) {
+      dispatch(setSearchText(searchTextByUrl));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     const text = pageParams.get('search')
       ? `${pageParams.get('search')}`
       : localStorage.getItem('searchText') || '';
@@ -71,8 +78,6 @@ const Gallery: FC<Props> = (): ReactElement => {
         selectedArtNumber,
         setSelectedArtNumber,
         setCurrentPage,
-        searchText,
-        setSearchText,
         arts,
       }}
     >

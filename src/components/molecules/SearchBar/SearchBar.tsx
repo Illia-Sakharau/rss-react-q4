@@ -6,7 +6,7 @@ import { ChangeEvent, FC, ReactElement } from 'react';
 type Props = {
   action: (text: string) => void;
   searchText: string;
-  setSearchText: React.Dispatch<React.SetStateAction<string>>;
+  setSearchText: (text: string) => void;
 };
 
 const MSearchBar: FC<Props> = (props): ReactElement => {
