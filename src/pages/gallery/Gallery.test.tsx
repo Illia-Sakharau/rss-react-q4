@@ -5,6 +5,8 @@ import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import * as TEST_DATA from '../../test/testData';
 import userEvent from '@testing-library/user-event';
 import ArtAsideWidget from '../../components/organisms/ArtAsideWidget/ArtAsideWidget';
+import { setupStore } from '../../store/store';
+import { Provider } from 'react-redux';
 
 const ls: {
   [key in string]: string;
@@ -56,10 +58,15 @@ const lsSet = (
   ls[key] = value;
 });
 
+const store = setupStore();
 const routes = [
   {
     path: '/gallery',
-    element: <Gallery />,
+    element: (
+      <Provider store={store}>
+        <Gallery />
+      </Provider>
+    ),
     children: [
       {
         path: '/gallery/:artID',

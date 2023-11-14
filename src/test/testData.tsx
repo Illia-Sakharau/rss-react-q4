@@ -143,7 +143,4 @@ export const galleyContextTestData: IGalleryContext = {
   selectedArtNumber: '10',
   setSelectedArtNumber: vi.fn() as React.Dispatch<React.SetStateAction<string>>,
   setCurrentPage: vi.fn() as React.Dispatch<React.SetStateAction<string>>,
-
-  searchText: 'Search text',
-  setSearchText: vi.fn() as React.Dispatch<React.SetStateAction<string>>,
 };
