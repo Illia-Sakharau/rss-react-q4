@@ -20,7 +20,6 @@ export const gallerySlice = createSlice({
   initialState,
   reducers: {
     setSearchText(state, action: PayloadAction<string>) {
-      localStorage.setItem('searchText', action.payload);
       state.searchText = action.payload;
     },
   },

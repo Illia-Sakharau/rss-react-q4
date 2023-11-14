@@ -54,6 +54,7 @@ const Gallery: FC<Props> = (): ReactElement => {
     const searchTextByUrl = pageParams.get('search');
     if (!!searchTextByUrl) {
       dispatch(setSearchText(searchTextByUrl));
+      localStorage.setItem('searchText', searchTextByUrl);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
