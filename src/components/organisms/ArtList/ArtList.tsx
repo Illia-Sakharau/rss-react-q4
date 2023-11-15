@@ -1,5 +1,5 @@
+import { artworksAPI } from '../../../API/aicAPI';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
-import { GalleyContext, IGalleryContext } from '../../../pages/gallery/context';
 import { gallerySlice } from '../../../store/reducers/GallarySlice';
 import { SectionHeader } from '../../atoms/headers/Headers';
 import Loader from '../../atoms/loader/Loader';
@@ -7,14 +7,22 @@ import SectionWrapper from '../../atoms/sectionWrapper/sectionWrapper';
 import Select from '../../atoms/select/Select';
 import ArtCard from '../../molecules/artCard/ArtCard';
 import classes from './style.module.scss';
-import { FC, ReactElement, useContext } from 'react';
+import { FC, ReactElement } from 'react';
 
 type Props = unknown;
 
 const ArtList: FC<Props> = (): ReactElement => {
-  const { arts } = useContext(GalleyContext) as IGalleryContext;
-  const { artPerPage } = useAppSelector((state) => state.galleryReducer);
+  const { artPerPage, currentPage, searchText, isLoading } = useAppSelector(
+    (state) => state.galleryReducer
+  );
   const { setCurrentPage, setArtPerPage } = gallerySlice.actions;
+
+  const { data } = artworksAPI.useFetchArtworksBySearchQuery({
+    limit: artPerPage,
+    page: currentPage,
+    text: searchText,
+  });
+
   const dispatch = useAppDispatch();
   return (
     <section className={classes.artList}>
@@ -28,10 +36,10 @@ const ArtList: FC<Props> = (): ReactElement => {
                 { value: '15', text: '15 arts' },
                 { value: '20', text: '20 arts' },
               ]}
-              value={artPerPage}
+              value={`${artPerPage}`}
               onChange={(value: string) => {
-                dispatch(setCurrentPage('1'));
-                dispatch(setArtPerPage(value));
+                dispatch(setCurrentPage(1));
+                dispatch(setArtPerPage(+value));
               }}
             />
           }
@@ -39,13 +47,13 @@ const ArtList: FC<Props> = (): ReactElement => {
           Artworks
         </SectionHeader>
 
-        {!arts ? (
+        {!data || isLoading ? (
           <Loader />
-        ) : arts.length === 0 ? (
+        ) : data.length === 0 ? (
           <div>No matches found</div>
         ) : (
           <div className={classes.artListInner}>
-            {arts.map((art) => (
+            {data.map((art) => (
               <ArtCard key={art.id} art={art} />
             ))}
           </div>

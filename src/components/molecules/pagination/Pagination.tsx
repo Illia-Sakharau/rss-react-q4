@@ -6,7 +6,7 @@ import { FC, ReactElement } from 'react';
 type Props = {
   currentPage: number;
   totalPages: number;
-  itemsOnPage: string;
+  itemsOnPage: number;
   onChange: (nextPage: string) => void;
   defaultText?: string;
   className?: string;
@@ -17,7 +17,7 @@ const Pagination: FC<Props> = (props): ReactElement => {
     ? classes.pagination + ' ' + props.className
     : classes.pagination;
 
-  const maxPage = Math.min(props.totalPages, 900 / +props.itemsOnPage);
+  const maxPage = Math.min(props.totalPages, 900 / props.itemsOnPage);
 
   return (
     <div className={className} data-testid="pagination">

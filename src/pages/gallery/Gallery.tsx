@@ -1,12 +1,8 @@
 import ArtList from '../../components/organisms/ArtList/ArtList';
 import SearchBar from '../../components/organisms/SearchBar/SearchBar';
 import classes from './style.module.scss';
-import { FC, ReactElement, useEffect, useState } from 'react';
-import { Art } from '../../types';
-import ArtworksAPI from '../../API/GetCollection';
-import adapter from '../../utils/adapter';
+import { FC, ReactElement, useEffect } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
-import { GalleyContext } from './context';
 import Pagination from '../../components/molecules/pagination/Pagination';
 import SectionWrapper from '../../components/atoms/sectionWrapper/sectionWrapper';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -16,10 +12,8 @@ type Props = unknown;
 
 const Gallery: FC<Props> = (): ReactElement => {
   const [pageParams, setPageParams] = useSearchParams();
-  const [arts, setArts] = useState<Art[] | undefined>(undefined);
-  const [totalPages, setTotalPages] = useState(1);
 
-  const { currentPage, artPerPage } = useAppSelector(
+  const { currentPage, artPerPage, totalPages } = useAppSelector(
     (state) => state.galleryReducer
   );
   const { setSearchText, setCurrentPage, setArtPerPage } = gallerySlice.actions;
@@ -31,21 +25,14 @@ const Gallery: FC<Props> = (): ReactElement => {
       page: string;
       search?: string;
     } = {
-      limit: artPerPage,
-      page: currentPage,
+      limit: `${artPerPage}`,
+      page: `${currentPage}`,
     };
     if (text) {
       queryParam.search = text;
     }
-    setSearchText(text);
-    setArts(undefined);
+    dispatch(setSearchText(text));
     setPageParams(queryParam);
-    ArtworksAPI.getSearchArtworks(text, +artPerPage, +currentPage)
-      .then((resp) => {
-        setTotalPages(resp.pagination.total_pages);
-        return resp.data.map((artworkInfo) => adapter(artworkInfo));
-      })
-      .then((artworks) => setArts(artworks));
   };
 
   useEffect(() => {
@@ -58,10 +45,10 @@ const Gallery: FC<Props> = (): ReactElement => {
       localStorage.setItem('searchText', searchTextByUrl);
     }
     if (!!currentPageByUrl) {
-      dispatch(setCurrentPage(currentPageByUrl));
+      dispatch(setCurrentPage(+currentPageByUrl));
     }
     if (!!artPerPageByUrl) {
-      dispatch(setArtPerPage(artPerPageByUrl));
+      dispatch(setArtPerPage(+artPerPageByUrl));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -76,33 +63,28 @@ const Gallery: FC<Props> = (): ReactElement => {
 
   const handlerSearchButtonClick = (text: string) => {
     localStorage.setItem('searchText', text);
-    dispatch(setCurrentPage('1'));
+    dispatch(setCurrentPage(1));
+    dispatch(setSearchText(text));
     requestActions(text);
   };
 
   return (
-    <GalleyContext.Provider
-      value={{
-        arts,
-      }}
-    >
-      <div className={classes.page}>
-        <SearchBar action={handlerSearchButtonClick} />
-        <Outlet />
-        <ArtList />
-        <SectionWrapper className={classes.pagination}>
-          <Pagination
-            totalPages={totalPages}
-            itemsOnPage={artPerPage}
-            defaultText={'Page'}
-            currentPage={+currentPage}
-            onChange={(nextPage: string) => {
-              dispatch(setCurrentPage(nextPage));
-            }}
-          />
-        </SectionWrapper>
-      </div>
-    </GalleyContext.Provider>
+    <div className={classes.page}>
+      <SearchBar action={handlerSearchButtonClick} />
+      <Outlet />
+      <ArtList />
+      <SectionWrapper className={classes.pagination}>
+        <Pagination
+          totalPages={totalPages}
+          itemsOnPage={artPerPage}
+          defaultText={'Page'}
+          currentPage={+currentPage}
+          onChange={(nextPage: string) => {
+            dispatch(setCurrentPage(+nextPage));
+          }}
+        />
+      </SectionWrapper>
+    </div>
   );
 };
 
