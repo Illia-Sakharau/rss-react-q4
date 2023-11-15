@@ -17,13 +17,12 @@ type Props = unknown;
 const Gallery: FC<Props> = (): ReactElement => {
   const [pageParams, setPageParams] = useSearchParams();
   const [arts, setArts] = useState<Art[] | undefined>(undefined);
-  const [selectedArtNumber, setSelectedArtNumber] = useState(
-    pageParams.get('limit') ? `${pageParams.get('limit')}` : '10'
-  );
   const [totalPages, setTotalPages] = useState(1);
 
-  const { currentPage } = useAppSelector((state) => state.galleryReducer);
-  const { setSearchText, setCurrentPage } = gallerySlice.actions;
+  const { currentPage, artPerPage } = useAppSelector(
+    (state) => state.galleryReducer
+  );
+  const { setSearchText, setCurrentPage, setArtPerPage } = gallerySlice.actions;
   const dispatch = useAppDispatch();
 
   const requestActions = (text: string) => {
@@ -32,7 +31,7 @@ const Gallery: FC<Props> = (): ReactElement => {
       page: string;
       search?: string;
     } = {
-      limit: selectedArtNumber,
+      limit: artPerPage,
       page: currentPage,
     };
     if (text) {
@@ -41,7 +40,7 @@ const Gallery: FC<Props> = (): ReactElement => {
     setSearchText(text);
     setArts(undefined);
     setPageParams(queryParam);
-    ArtworksAPI.getSearchArtworks(text, +selectedArtNumber, +currentPage)
+    ArtworksAPI.getSearchArtworks(text, +artPerPage, +currentPage)
       .then((resp) => {
         setTotalPages(resp.pagination.total_pages);
         return resp.data.map((artworkInfo) => adapter(artworkInfo));
@@ -52,6 +51,7 @@ const Gallery: FC<Props> = (): ReactElement => {
   useEffect(() => {
     const searchTextByUrl = pageParams.get('search');
     const currentPageByUrl = pageParams.get('page');
+    const artPerPageByUrl = pageParams.get('limit');
 
     if (!!searchTextByUrl) {
       dispatch(setSearchText(searchTextByUrl));
@@ -59,6 +59,9 @@ const Gallery: FC<Props> = (): ReactElement => {
     }
     if (!!currentPageByUrl) {
       dispatch(setCurrentPage(currentPageByUrl));
+    }
+    if (!!artPerPageByUrl) {
+      dispatch(setArtPerPage(artPerPageByUrl));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -69,7 +72,7 @@ const Gallery: FC<Props> = (): ReactElement => {
       : localStorage.getItem('searchText') || '';
     requestActions(text);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage, selectedArtNumber]);
+  }, [currentPage, artPerPage]);
 
   const handlerSearchButtonClick = (text: string) => {
     localStorage.setItem('searchText', text);
@@ -80,8 +83,6 @@ const Gallery: FC<Props> = (): ReactElement => {
   return (
     <GalleyContext.Provider
       value={{
-        selectedArtNumber,
-        setSelectedArtNumber,
         arts,
       }}
     >
@@ -92,7 +93,7 @@ const Gallery: FC<Props> = (): ReactElement => {
         <SectionWrapper className={classes.pagination}>
           <Pagination
             totalPages={totalPages}
-            itemsOnPage={selectedArtNumber}
+            itemsOnPage={artPerPage}
             defaultText={'Page'}
             currentPage={+currentPage}
             onChange={(nextPage: string) => {

@@ -140,6 +140,4 @@ export const preparedArtworksInfo: Art[] = [
 
 export const galleyContextTestData: IGalleryContext = {
   arts: preparedArtworksInfo,
-  selectedArtNumber: '10',
-  setSelectedArtNumber: vi.fn() as React.Dispatch<React.SetStateAction<string>>,
 };

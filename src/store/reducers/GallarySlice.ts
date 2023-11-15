@@ -7,6 +7,7 @@ interface IGalleryState {
   error: string;
   searchText: string;
   currentPage: string;
+  artPerPage: string;
 }
 
 const initialState: IGalleryState = {
@@ -15,6 +16,7 @@ const initialState: IGalleryState = {
   error: '',
   searchText: localStorage.getItem('searchText') || '',
   currentPage: '1',
+  artPerPage: '10',
 };
 
 export const gallerySlice = createSlice({
@@ -26,6 +28,9 @@ export const gallerySlice = createSlice({
     },
     setCurrentPage(state, action: PayloadAction<string>) {
       state.currentPage = action.payload;
+    },
+    setArtPerPage(state, action: PayloadAction<string>) {
+      state.artPerPage = action.payload;
     },
   },
 });

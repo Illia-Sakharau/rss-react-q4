@@ -1,4 +1,4 @@
-import { useAppDispatch } from '../../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { GalleyContext, IGalleryContext } from '../../../pages/gallery/context';
 import { gallerySlice } from '../../../store/reducers/GallarySlice';
 import { SectionHeader } from '../../atoms/headers/Headers';
@@ -12,10 +12,9 @@ import { FC, ReactElement, useContext } from 'react';
 type Props = unknown;
 
 const ArtList: FC<Props> = (): ReactElement => {
-  const { selectedArtNumber, setSelectedArtNumber, arts } = useContext(
-    GalleyContext
-  ) as IGalleryContext;
-  const { setCurrentPage } = gallerySlice.actions;
+  const { arts } = useContext(GalleyContext) as IGalleryContext;
+  const { artPerPage } = useAppSelector((state) => state.galleryReducer);
+  const { setCurrentPage, setArtPerPage } = gallerySlice.actions;
   const dispatch = useAppDispatch();
   return (
     <section className={classes.artList}>
@@ -29,10 +28,10 @@ const ArtList: FC<Props> = (): ReactElement => {
                 { value: '15', text: '15 arts' },
                 { value: '20', text: '20 arts' },
               ]}
-              value={selectedArtNumber}
+              value={artPerPage}
               onChange={(value: string) => {
                 dispatch(setCurrentPage('1'));
-                setSelectedArtNumber(value);
+                dispatch(setArtPerPage(value));
               }}
             />
           }
