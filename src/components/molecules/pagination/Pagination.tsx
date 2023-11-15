@@ -7,7 +7,7 @@ type Props = {
   currentPage: number;
   totalPages: number;
   itemsOnPage: string;
-  onChange: React.Dispatch<React.SetStateAction<string>>;
+  onChange: (nextPage: string) => void;
   defaultText?: string;
   className?: string;
 };

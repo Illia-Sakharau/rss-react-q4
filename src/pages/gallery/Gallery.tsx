@@ -9,7 +9,7 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 import { GalleyContext } from './context';
 import Pagination from '../../components/molecules/pagination/Pagination';
 import SectionWrapper from '../../components/atoms/sectionWrapper/sectionWrapper';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { gallerySlice } from '../../store/reducers/GallarySlice';
 
 type Props = unknown;
@@ -20,11 +20,10 @@ const Gallery: FC<Props> = (): ReactElement => {
   const [selectedArtNumber, setSelectedArtNumber] = useState(
     pageParams.get('limit') ? `${pageParams.get('limit')}` : '10'
   );
-  const [currentPage, setCurrentPage] = useState(
-    pageParams.get('page') ? `${pageParams.get('page')}` : '1'
-  );
   const [totalPages, setTotalPages] = useState(1);
-  const { setSearchText } = gallerySlice.actions;
+
+  const { currentPage } = useAppSelector((state) => state.galleryReducer);
+  const { setSearchText, setCurrentPage } = gallerySlice.actions;
   const dispatch = useAppDispatch();
 
   const requestActions = (text: string) => {
@@ -52,9 +51,14 @@ const Gallery: FC<Props> = (): ReactElement => {
 
   useEffect(() => {
     const searchTextByUrl = pageParams.get('search');
+    const currentPageByUrl = pageParams.get('page');
+
     if (!!searchTextByUrl) {
       dispatch(setSearchText(searchTextByUrl));
       localStorage.setItem('searchText', searchTextByUrl);
+    }
+    if (!!currentPageByUrl) {
+      dispatch(setCurrentPage(currentPageByUrl));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -69,7 +73,7 @@ const Gallery: FC<Props> = (): ReactElement => {
 
   const handlerSearchButtonClick = (text: string) => {
     localStorage.setItem('searchText', text);
-    setCurrentPage('1');
+    dispatch(setCurrentPage('1'));
     requestActions(text);
   };
 
@@ -78,7 +82,6 @@ const Gallery: FC<Props> = (): ReactElement => {
       value={{
         selectedArtNumber,
         setSelectedArtNumber,
-        setCurrentPage,
         arts,
       }}
     >
@@ -92,7 +95,9 @@ const Gallery: FC<Props> = (): ReactElement => {
             itemsOnPage={selectedArtNumber}
             defaultText={'Page'}
             currentPage={+currentPage}
-            onChange={setCurrentPage}
+            onChange={(nextPage: string) => {
+              dispatch(setCurrentPage(nextPage));
+            }}
           />
         </SectionWrapper>
       </div>

@@ -6,6 +6,7 @@ interface IGalleryState {
   isLoading: boolean;
   error: string;
   searchText: string;
+  currentPage: string;
 }
 
 const initialState: IGalleryState = {
@@ -13,6 +14,7 @@ const initialState: IGalleryState = {
   isLoading: false,
   error: '',
   searchText: localStorage.getItem('searchText') || '',
+  currentPage: '1',
 };
 
 export const gallerySlice = createSlice({
@@ -21,6 +23,9 @@ export const gallerySlice = createSlice({
   reducers: {
     setSearchText(state, action: PayloadAction<string>) {
       state.searchText = action.payload;
+    },
+    setCurrentPage(state, action: PayloadAction<string>) {
+      state.currentPage = action.payload;
     },
   },
 });
