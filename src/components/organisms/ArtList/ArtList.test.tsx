@@ -6,32 +6,31 @@ import ArtList from './ArtList';
 import { GalleyContext } from '../../../pages/gallery/context';
 import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
+import { setupStore } from '../../../store/store';
+import { gallerySlice } from '../../../store/reducers/GallarySlice';
 
 const selectedArtNumber = '10';
 const setSelectedArtNumber = vi.fn() as React.Dispatch<
   React.SetStateAction<string>
 >;
-const setCurrentPage = vi.fn() as React.Dispatch<React.SetStateAction<string>>;
 
-const searchText = '';
-const setSearchText = vi.fn() as React.Dispatch<React.SetStateAction<string>>;
-
+const store = setupStore();
 const customRender = (arts: Art[] | undefined) => {
   render(
-    <MemoryRouter>
-      <GalleyContext.Provider
-        value={{
-          selectedArtNumber,
-          setSelectedArtNumber,
-          setCurrentPage,
-          searchText,
-          setSearchText,
-          arts,
-        }}
-      >
-        <ArtList />
-      </GalleyContext.Provider>
-    </MemoryRouter>
+    <Provider store={store}>
+      <MemoryRouter>
+        <GalleyContext.Provider
+          value={{
+            selectedArtNumber,
+            setSelectedArtNumber,
+            arts,
+          }}
+        >
+          <ArtList />
+        </GalleyContext.Provider>
+      </MemoryRouter>
+    </Provider>
   );
 };
 
@@ -65,6 +64,7 @@ describe('Art list', () => {
   it('Check item per page select', async () => {
     const arts: Art[] | undefined = TEST_DATA.preparedArtworksInfo;
     customRender(arts);
+    const { setCurrentPage } = gallerySlice.actions;
 
     const selectEl = screen.getByRole('combobox');
     const options = screen.getAllByRole('option') as HTMLOptionElement[];

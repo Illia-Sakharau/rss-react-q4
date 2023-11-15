@@ -3,6 +3,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as TEST_DATA from './test/testData';
 import App from './App';
+import { Provider } from 'react-redux';
+import { setupStore } from './store/store';
 
 const triger = vi.fn();
 vi.mock('../../../API/GetCollection', async () => {
@@ -27,10 +29,15 @@ vi.mock('../../../API/GetCollection', async () => {
     },
   };
 });
+const store = setupStore();
 
 describe('Application', () => {
   it('Test invalid route', async () => {
-    render(<App />);
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
     expect(screen.getByText('Home Page')).toBeInTheDocument();
     const badLink = screen.getByRole('link', { name: '404' });
 
