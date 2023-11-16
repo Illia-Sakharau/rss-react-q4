@@ -4,8 +4,6 @@ import ArtworksAPI from './GetCollection';
 import { gallerySlice } from '../store/reducers/GallarySlice';
 import adapter from '../utils/adapter';
 
-type test = { text: string; limit: number; page: number };
-
 export const artworksAPI = createApi({
   reducerPath: 'artworksAPI',
   baseQuery: fetchBaseQuery({
@@ -32,7 +30,10 @@ export const artworksAPI = createApi({
       }),
     }),
 
-    fetchArtworksBySearch: build.query<Art[], test>({
+    fetchArtworksBySearch: build.query<
+      Art[],
+      { text: string; limit: number; page: number }
+    >({
       queryFn: async (arg, api) => {
         const { setIsLoading, setTotalPages } = gallerySlice.actions;
         api.dispatch(setIsLoading(true));

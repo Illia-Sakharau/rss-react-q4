@@ -32,7 +32,7 @@ describe('Input', () => {
   });
 
   it('Works without unnecessary props', () => {
-    render(<Input type={typeTest} value={valueTest} />);
+    render(<Input type={typeTest} value={valueTest} onChange={onChangeTest} />);
 
     expect(screen.getByRole('textbox')).toBeInTheDocument();
   });
