@@ -23,7 +23,7 @@ const WrapperWithState: FC = (): ReactElement => {
     <div data-testid="test-wrapper">
       <Pagination
         currentPage={+value}
-        itemsOnPage={itemsOnPageTest}
+        itemsOnPage={+itemsOnPageTest}
         totalPages={totalPagesTest}
         onChange={changePage}
       />
@@ -40,7 +40,7 @@ describe('Pagination', () => {
     render(
       <Pagination
         currentPage={1}
-        itemsOnPage={itemsOnPageTest}
+        itemsOnPage={+itemsOnPageTest}
         totalPages={totalPagesTest}
         onChange={(() => {}) as React.Dispatch<React.SetStateAction<string>>}
         defaultText={defaultTextTest}
