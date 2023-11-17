@@ -11,19 +11,19 @@ type Props = {
 };
 
 const ArtDetails: FC<Props> = (props): ReactElement => {
-  const { data, isLoading } = artworksAPI.useFetchArtworkQuery(props.artID);
+  const { data, isFetching } = artworksAPI.useFetchArtworkQuery(props.artID);
   const { setIsLoading } = artDetailsSlice.actions;
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setIsLoading(isLoading));
+    dispatch(setIsLoading(isFetching));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  }, [isFetching]);
 
   return (
     <div className={classes.wrapper}>
-      {isLoading || !data ? (
+      {isFetching || !data ? (
         <Loader />
       ) : (
         <>
