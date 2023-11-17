@@ -9,6 +9,22 @@ import { responseArtworsInfo } from './testData';
 expect.extend(matchers);
 
 export const server = setupServer(
+  http.get('https://api.artic.edu/api/v1/artworks/search*', () => {
+    return HttpResponse.json({
+      pagination: {
+        total: 11,
+        limit: 10,
+        total_pages: 2,
+        current_page: 1,
+      },
+      data: responseArtworsInfo.toSpliced(9, 1),
+    });
+  }),
+  http.get('https://api.artic.edu/api/v1/artworks/*', () => {
+    return HttpResponse.json({
+      data: responseArtworsInfo[0],
+    });
+  }),
   http.get('https://api.artic.edu/api/v1/*', () => {
     return HttpResponse.json({
       pagination: {

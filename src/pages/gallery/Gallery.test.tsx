@@ -79,7 +79,6 @@ describe('Gallery page', () => {
     //open details
     await userEvent.click(cards[0]);
 
-    // await waitFor(() => expect(triger).toHaveBeenCalledTimes(2)); //check triggers an additional API call
     await expect(router.state.location.pathname).toBe('/gallery/1');
     expect(screen.getByTestId('aside-widget')).toBeInTheDocument();
   });
