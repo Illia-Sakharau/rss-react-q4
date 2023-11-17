@@ -1,4 +1,4 @@
-import { Art, ResponseArtworkInfo, ResponseInfo } from '../types';
+import { Art, ResponseArtworkInfo } from '../types';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 import ArtworksAPI from './GetCollection';
 import { gallerySlice } from '../store/reducers/GallarySlice';
@@ -10,20 +10,6 @@ export const artworksAPI = createApi({
     baseUrl: 'https://api.artic.edu/api/v1/artworks',
   }),
   endpoints: (build) => ({
-    fetchArtworks: build.query<
-      ResponseInfo,
-      { limit: number; page: number; IDs?: number[] }
-    >({
-      query: ({ limit, page, IDs }) => ({
-        url: '/',
-        params: {
-          limit,
-          page,
-          ids: IDs?.toString(),
-        },
-      }),
-    }),
-
     fetchArtwork: build.query<Art, string>({
       query: (id) => ({
         url: `/${id}`,
@@ -37,7 +23,7 @@ export const artworksAPI = createApi({
       { text: string; limit: number; page: number }
     >({
       queryFn: async (arg, api) => {
-        const { setIsLoading, setTotalPages } = gallerySlice.actions;
+        const { setIsLoading, setTotalPages, setArts } = gallerySlice.actions;
         api.dispatch(setIsLoading(true));
         const response = await ArtworksAPI.getSearchArtworks(
           arg.text,
@@ -46,6 +32,7 @@ export const artworksAPI = createApi({
         );
 
         const data = response.data.map((respInfo) => adapter(respInfo));
+        api.dispatch(setArts(data));
         api.dispatch(setTotalPages(response.pagination.total_pages));
         api.dispatch(setIsLoading(false));
         return { data };

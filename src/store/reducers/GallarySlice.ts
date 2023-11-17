@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Art } from '../../types';
 
 interface IGalleryState {
+  artworks: Art[];
   isLoading: boolean;
   searchText: string;
   currentPage: number;
@@ -9,6 +11,7 @@ interface IGalleryState {
 }
 
 const initialState: IGalleryState = {
+  artworks: [],
   isLoading: false,
   searchText: localStorage.getItem('searchText') || '',
   currentPage: 1,
@@ -20,6 +23,9 @@ export const gallerySlice = createSlice({
   name: 'gallery',
   initialState,
   reducers: {
+    setArts(state, action: PayloadAction<Art[]>) {
+      state.artworks = action.payload;
+    },
     setSearchText(state, action: PayloadAction<string>) {
       state.searchText = action.payload;
     },
