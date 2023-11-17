@@ -4,10 +4,12 @@ import {
   getDefaultMiddleware,
 } from '@reduxjs/toolkit';
 import galleryReducer from './reducers/GallarySlice';
+import artDetailsReducer from './reducers/ArtDetailsSlice';
 import { artworksAPI } from '../API/aicAPI';
 
 const rootReducer = combineReducers({
   galleryReducer,
+  artDetailsReducer,
   [artworksAPI.reducerPath]: artworksAPI.reducer,
 });
 

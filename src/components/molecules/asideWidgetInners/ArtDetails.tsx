@@ -1,42 +1,43 @@
-import ArtworksAPI from '../../../API/GetCollection';
-import { Art } from '../../../types';
-import adapter from '../../../utils/adapter';
+import { artworksAPI } from '../../../API/aicAPI';
+import { useAppDispatch } from '../../../hooks/redux';
+import { artDetailsSlice } from '../../../store/reducers/ArtDetailsSlice';
 import Loader from '../../atoms/loader/Loader';
 import RowInfo from './RowInfo';
 import classes from './style.module.scss';
-import { FC, ReactElement, useEffect, useState } from 'react';
+import { FC, ReactElement, useEffect } from 'react';
 
 type Props = {
   artID: string;
 };
 
 const ArtDetails: FC<Props> = (props): ReactElement => {
-  const [artInfo, setArtInfo] = useState<Art | null>(null);
+  const { data, isLoading } = artworksAPI.useFetchArtworkQuery(props.artID);
+  const { setIsLoading } = artDetailsSlice.actions;
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    ArtworksAPI.getArtworks(1, 1, [+props.artID]).then((resp) => {
-      setArtInfo(adapter(resp.data[0]));
-    });
+    dispatch(setIsLoading(isLoading));
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isLoading]);
 
   return (
     <div className={classes.wrapper}>
-      {!artInfo ? (
+      {isLoading || !data ? (
         <Loader />
       ) : (
         <>
           <div className={classes.imageWrapper}>
-            <img src={artInfo.imgURL} alt={artInfo.imgAlt} />
+            <img src={data.imgURL} alt={data.imgAlt} />
           </div>
 
-          <h3 className={classes.title}>{artInfo.title}</h3>
-          <RowInfo title="Artist" text={artInfo.artist} />
-          <RowInfo title="Date" text={artInfo.date} />
-          <RowInfo title="Category" text={artInfo.category} />
+          <h3 className={classes.title}>{data.title}</h3>
+          <RowInfo title="Artist" text={data.artist} />
+          <RowInfo title="Date" text={data.date} />
+          <RowInfo title="Category" text={data.category} />
           <RowInfo
             title="Provenance"
-            text={artInfo.provenance}
+            text={data.provenance}
             className={classes.rowText}
           />
         </>

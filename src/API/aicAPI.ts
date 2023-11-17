@@ -1,4 +1,4 @@
-import { Art, ResponseInfo } from '../types';
+import { Art, ResponseArtworkInfo, ResponseInfo } from '../types';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 import ArtworksAPI from './GetCollection';
 import { gallerySlice } from '../store/reducers/GallarySlice';
@@ -24,10 +24,12 @@ export const artworksAPI = createApi({
       }),
     }),
 
-    fetchArtwork: build.query<ResponseInfo, number>({
+    fetchArtwork: build.query<Art, string>({
       query: (id) => ({
         url: `/${id}`,
       }),
+      transformResponse: (response: { data: ResponseArtworkInfo }) =>
+        adapter(response.data),
     }),
 
     fetchArtworksBySearch: build.query<
