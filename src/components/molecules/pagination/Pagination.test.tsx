@@ -6,7 +6,6 @@ import userEvent from '@testing-library/user-event';
 import { FC, ReactElement, useState } from 'react';
 
 let currentPageTest = 1;
-const itemsOnPageTest = '10';
 const totalPagesTest = 5;
 const defaultTextTest = TEST_DATA.text;
 const classNameTest = TEST_DATA.className;
@@ -23,7 +22,6 @@ const WrapperWithState: FC = (): ReactElement => {
     <div data-testid="test-wrapper">
       <Pagination
         currentPage={+value}
-        itemsOnPage={+itemsOnPageTest}
         totalPages={totalPagesTest}
         onChange={changePage}
       />
@@ -40,7 +38,6 @@ describe('Pagination', () => {
     render(
       <Pagination
         currentPage={1}
-        itemsOnPage={+itemsOnPageTest}
         totalPages={totalPagesTest}
         onChange={(() => {}) as React.Dispatch<React.SetStateAction<string>>}
         defaultText={defaultTextTest}
