@@ -1,0 +1,12 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  padding: 16px 32px;
+  border-bottom: solid 1.5px var(--color-black);
+
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
+}
