@@ -39,7 +39,9 @@ export const server = setupServer(
 );
 
 beforeAll(() => {
-  server.listen();
+  server.listen({
+    onUnhandledRequest: 'error',
+  });
 });
 
 afterEach(() => {

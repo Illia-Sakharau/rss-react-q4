@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Art } from '../../types';
+import { artworksAPI } from '../../API/aicAPI';
 
 interface IGalleryState {
   artworks: Art[];
@@ -23,9 +24,6 @@ export const gallerySlice = createSlice({
   name: 'gallery',
   initialState,
   reducers: {
-    setArts(state, action: PayloadAction<Art[]>) {
-      state.artworks = action.payload;
-    },
     setSearchText(state, action: PayloadAction<string>) {
       state.searchText = action.payload;
     },
@@ -35,12 +33,32 @@ export const gallerySlice = createSlice({
     setArtPerPage(state, action: PayloadAction<number>) {
       state.artPerPage = action.payload;
     },
-    setIsLoading(state, action: PayloadAction<boolean>) {
-      state.isLoading = action.payload;
-    },
     setTotalPages(state, action: PayloadAction<number>) {
       state.totalPages = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      artworksAPI.endpoints.fetchArtworksBySearch.matchPending,
+      (state) => {
+        state.isLoading = true;
+        state.artworks = [];
+      }
+    ),
+      builder.addMatcher(
+        artworksAPI.endpoints.fetchArtworksBySearch.matchFulfilled,
+        (state, { payload }) => {
+          state.isLoading = false;
+          state.artworks = payload;
+        }
+      ),
+      builder.addMatcher(
+        artworksAPI.endpoints.fetchArtworksBySearch.matchRejected,
+        (state) => {
+          state.isLoading = false;
+          state.artworks = [];
+        }
+      );
   },
 });
 

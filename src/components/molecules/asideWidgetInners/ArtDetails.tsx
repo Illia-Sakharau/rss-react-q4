@@ -1,10 +1,8 @@
 import { artworksAPI } from '../../../API/aicAPI';
-import { useAppDispatch } from '../../../hooks/redux';
-import { artDetailsSlice } from '../../../store/reducers/ArtDetailsSlice';
 import Loader from '../../atoms/loader/Loader';
 import RowInfo from './RowInfo';
 import classes from './style.module.scss';
-import { FC, ReactElement, useEffect } from 'react';
+import { FC, ReactElement } from 'react';
 
 type Props = {
   artID: string;
@@ -12,14 +10,6 @@ type Props = {
 
 const ArtDetails: FC<Props> = (props): ReactElement => {
   const { data, isFetching } = artworksAPI.useFetchArtworkQuery(props.artID);
-  const { setIsLoading } = artDetailsSlice.actions;
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(setIsLoading(isFetching));
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFetching]);
 
   return (
     <div className={classes.wrapper}>

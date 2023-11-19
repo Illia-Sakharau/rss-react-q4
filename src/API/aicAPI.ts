@@ -23,18 +23,19 @@ export const artworksAPI = createApi({
       { text: string; limit: number; page: number }
     >({
       queryFn: async (arg, api) => {
-        const { setIsLoading, setTotalPages, setArts } = gallerySlice.actions;
-        api.dispatch(setIsLoading(true));
+        const { setTotalPages } = gallerySlice.actions;
         const response = await ArtworksAPI.getSearchArtworks(
           arg.text,
           arg.limit,
           arg.page
         );
-
         const data = response.data.map((respInfo) => adapter(respInfo));
-        api.dispatch(setArts(data));
-        api.dispatch(setTotalPages(response.pagination.total_pages));
-        api.dispatch(setIsLoading(false));
+        const maxPage = Math.min(
+          response.pagination.total_pages,
+          900 / response.pagination.limit
+        );
+
+        api.dispatch(setTotalPages(maxPage));
         return { data };
       },
     }),

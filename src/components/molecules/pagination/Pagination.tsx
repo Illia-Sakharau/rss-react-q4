@@ -6,7 +6,6 @@ import { FC, ReactElement } from 'react';
 type Props = {
   currentPage: number;
   totalPages: number;
-  itemsOnPage: number;
   onChange: (nextPage: string) => void;
   defaultText?: string;
   className?: string;
@@ -16,8 +15,6 @@ const Pagination: FC<Props> = (props): ReactElement => {
   const className = props.className
     ? classes.pagination + ' ' + props.className
     : classes.pagination;
-
-  const maxPage = Math.min(props.totalPages, 900 / props.itemsOnPage);
 
   return (
     <div className={className} data-testid="pagination">
@@ -35,20 +32,20 @@ const Pagination: FC<Props> = (props): ReactElement => {
       </Button>
       <Select
         className={classes.select}
-        options={formPaginationOptions(maxPage)}
+        options={formPaginationOptions(props.totalPages)}
         defaultText={props.defaultText}
         value={`${props.currentPage}`}
         onChange={props.onChange}
       />
       <Button
         onClick={() => props.onChange(`${props.currentPage + 1}`)}
-        disabled={props.currentPage === maxPage}
+        disabled={props.currentPage === props.totalPages}
       >
         {`>`}
       </Button>
       <Button
-        onClick={() => props.onChange(`${maxPage}`)}
-        disabled={props.currentPage === maxPage}
+        onClick={() => props.onChange(`${props.totalPages}`)}
+        disabled={props.currentPage === props.totalPages}
       >
         {`>>`}
       </Button>

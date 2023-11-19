@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { artworksAPI } from '../../API/aicAPI';
 
 interface IGalleryState {
   isLoading: boolean;
@@ -11,10 +12,21 @@ const initialState: IGalleryState = {
 export const artDetailsSlice = createSlice({
   name: 'artDetails',
   initialState,
-  reducers: {
-    setIsLoading(state, action: PayloadAction<boolean>) {
-      state.isLoading = action.payload;
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addMatcher(artworksAPI.endpoints.fetchArtwork.matchPending, (state) => {
+        state.isLoading = true;
+      })
+      .addMatcher(
+        artworksAPI.endpoints.fetchArtwork.matchFulfilled,
+        (state) => {
+          state.isLoading = false;
+        }
+      )
+      .addMatcher(artworksAPI.endpoints.fetchArtwork.matchRejected, (state) => {
+        state.isLoading = false;
+      });
   },
 });
 
