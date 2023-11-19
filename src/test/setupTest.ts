@@ -20,9 +20,10 @@ export const server = setupServer(
       data: responseArtworsInfo.toSpliced(9, 1),
     });
   }),
-  http.get('https://api.artic.edu/api/v1/artworks/*', () => {
+  http.get('https://api.artic.edu/api/v1/artworks/:id', ({ params }) => {
+    const { id } = params;
     return HttpResponse.json({
-      data: responseArtworsInfo[0],
+      data: responseArtworsInfo.find((art) => art.id === +id),
     });
   }),
   http.get('https://api.artic.edu/api/v1/*', () => {

@@ -10,7 +10,7 @@ const store = setupStore();
 describe('Artwork details info', () => {
   it('Check loader and data', async () => {
     const { id, imgAlt, title, artist, date, category, provenance } =
-      TEST_DATA.preparedArtworksInfo[0];
+      TEST_DATA.preparedArtworksInfo[3];
     render(
       <Provider store={store}>
         <ArtDetails artID={`${id}`} />
