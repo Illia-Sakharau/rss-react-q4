@@ -1,4 +1,4 @@
-import classes from '../styles/NotFound.module.scss';
+import classes from '../styles/NotFoundPage.module.scss';
 import { FC, ReactElement } from 'react';
 import Button from '@/components/1-atoms/button/Button';
 import { useRouter } from 'next/router';

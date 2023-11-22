@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import classes from '@/styles/Home.module.scss';
+import classes from '@/styles/HomePage.module.scss';
 import { SectionHeader } from '@/components/1-atoms/headers/Headers';
 import Link from 'next/link';
 

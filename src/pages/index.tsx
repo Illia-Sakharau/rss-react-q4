@@ -1,18 +1,17 @@
 import Head from 'next/head';
-import classes from '@/styles/Home.module.scss';
+import classes from '@/styles/HomePage.module.scss';
 import Button from '@/components/1-atoms/button/Button';
 import { SectionHeader } from '@/components/1-atoms/headers/Headers';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import Error from 'next/error';
 
 export default function Home() {
   const [error, setError] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (error) {
-      throw new Error('ERRORRRRR...');
-    }
-  }, [error]);
+  if (error) {
+    return <Error statusCode={500} />;
+  }
 
   return (
     <>
