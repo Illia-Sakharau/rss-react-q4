@@ -1,8 +1,8 @@
 import classes from './style.module.scss';
 import { FC, ReactElement } from 'react';
-import NavBar from '../../molecules/navBar/NavBar';
+import NavBar from '../../2-molecules/navBar/NavBar';
 import { linkInfo } from '../../../types';
-import Logo from '../../atoms/logo/Logo';
+import Logo from '../../1-atoms/logo/Logo';
 
 type Props = unknown;
 

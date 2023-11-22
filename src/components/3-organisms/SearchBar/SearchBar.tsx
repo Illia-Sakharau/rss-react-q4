@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { gallerySlice } from '../../../store/reducers/GallarySlice';
-import SectionWrapper from '../../atoms/sectionWrapper/sectionWrapper';
-import MSearchBar from '../../molecules/SearchBar/SearchBar';
+import SectionWrapper from '../../1-atoms/sectionWrapper/sectionWrapper';
+import MSearchBar from '../../2-molecules/SearchBar/SearchBar';
 import classes from './style.module.scss';
 import { FC, ReactElement, useEffect, useState } from 'react';
 

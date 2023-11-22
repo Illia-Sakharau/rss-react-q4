@@ -1,5 +1,5 @@
 import { artworksAPI } from '../../../API/aicAPI';
-import Loader from '../../atoms/loader/Loader';
+import Loader from '../../1-atoms/loader/Loader';
 import RowInfo from './RowInfo';
 import classes from './style.module.scss';
 import { FC, ReactElement } from 'react';

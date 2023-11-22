@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import classes from '@/styles/Home.module.scss';
-import { SectionHeader } from '@/components/atoms/headers/Headers';
+import { SectionHeader } from '@/components/1-atoms/headers/Headers';
 import Link from 'next/link';
 
 export default function Home() {

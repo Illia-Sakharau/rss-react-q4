@@ -1,11 +1,11 @@
 import { artworksAPI } from '../../../API/aicAPI';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { gallerySlice } from '../../../store/reducers/GallarySlice';
-import { SectionHeader } from '../../atoms/headers/Headers';
-import Loader from '../../atoms/loader/Loader';
-import SectionWrapper from '../../atoms/sectionWrapper/sectionWrapper';
-import Select from '../../atoms/select/Select';
-import ArtCard from '../../molecules/artCard/ArtCard';
+import { SectionHeader } from '../../1-atoms/headers/Headers';
+import Loader from '../../1-atoms/loader/Loader';
+import SectionWrapper from '../../1-atoms/sectionWrapper/sectionWrapper';
+import Select from '../../1-atoms/select/Select';
+import ArtCard from '../../2-molecules/artCard/ArtCard';
 import classes from './style.module.scss';
 import { FC, ReactElement } from 'react';
 

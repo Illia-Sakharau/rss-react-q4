@@ -1,5 +1,5 @@
-import Button from '../../atoms/button/Button';
-import Input from '../../atoms/input/Input';
+import Button from '../../1-atoms/button/Button';
+import Input from '../../1-atoms/input/Input';
 import classes from './style.module.scss';
 import { ChangeEvent, FC, ReactElement } from 'react';
 

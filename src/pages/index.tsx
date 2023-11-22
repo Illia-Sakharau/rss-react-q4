@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import classes from '@/styles/Home.module.scss';
-import Button from '@/components/atoms/button/Button';
-import { SectionHeader } from '@/components/atoms/headers/Headers';
+import Button from '@/components/1-atoms/button/Button';
+import { SectionHeader } from '@/components/1-atoms/headers/Headers';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 

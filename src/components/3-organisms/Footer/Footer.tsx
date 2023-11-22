@@ -1,8 +1,8 @@
 import classes from './style.module.scss';
 import { FC, ReactElement } from 'react';
-import NavBar from '@/components/molecules/navBar/NavBar';
-import Logo from '@/components/atoms/logo/Logo';
-import SectionWrapper from '@/components/atoms/sectionWrapper/sectionWrapper';
+import NavBar from '@/components/2-molecules/navBar/NavBar';
+import Logo from '@/components/1-atoms/logo/Logo';
+import SectionWrapper from '@/components/1-atoms/sectionWrapper/sectionWrapper';
 import LogoRSS from '@/assets/rss-logo.svg';
 import LogoAIC from '@/assets/aic-logo.svg';
 import { linkInfo } from '@/types';

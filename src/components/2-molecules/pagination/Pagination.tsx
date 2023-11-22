@@ -1,5 +1,5 @@
-import Button from '../../atoms/button/Button';
-import Select from '../../atoms/select/Select';
+import Button from '../../1-atoms/button/Button';
+import Select from '../../1-atoms/select/Select';
 import classes from './style.module.scss';
 import { FC, ReactElement } from 'react';
 

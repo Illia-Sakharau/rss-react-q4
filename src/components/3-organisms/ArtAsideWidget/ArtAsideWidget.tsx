@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { FC, ReactElement } from 'react';
-import AsideWidget from '../../molecules/asideWidget/asideWidget';
-import ArtDetails from '../../molecules/asideWidgetInners/ArtDetails';
+import AsideWidget from '../../2-molecules/asideWidget/asideWidget';
+import ArtDetails from '../../2-molecules/asideWidgetInners/ArtDetails';
 
 type Props = unknown;
 

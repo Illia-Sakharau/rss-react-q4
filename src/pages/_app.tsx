@@ -1,5 +1,5 @@
-import Footer from '@/components/organisms/Footer/Footer';
-import Header from '@/components/organisms/Header/Header';
+import Footer from '@/components/3-organisms/Footer/Footer';
+import Header from '@/components/3-organisms/Header/Header';
 import '@/styles/globals.scss';
 import type { AppProps } from 'next/app';
 
