@@ -1,6 +1,3 @@
-import { artworksAPI } from '../../../API/aicAPI';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
-import { gallerySlice } from '../../../store/reducers/GallarySlice';
 import { SectionHeader } from '../../1-atoms/headers/Headers';
 import Loader from '../../1-atoms/loader/Loader';
 import SectionWrapper from '../../1-atoms/sectionWrapper/sectionWrapper';
@@ -8,22 +5,26 @@ import Select from '../../1-atoms/select/Select';
 import ArtCard from '../../2-molecules/artCard/ArtCard';
 import classes from './style.module.scss';
 import { FC, ReactElement } from 'react';
+import { Art } from '@/types';
+import { useRouter } from 'next/router';
 
-type Props = unknown;
+type Props = {
+  artworks: Art[] | undefined;
+  artPerPage: number;
+};
 
-const ArtList: FC<Props> = (): ReactElement => {
-  const { artPerPage, currentPage, searchText, isLoading } = useAppSelector(
-    (state) => state.galleryReducer
-  );
-  const { setCurrentPage, setArtPerPage } = gallerySlice.actions;
+const ArtList: FC<Props> = ({ artworks, artPerPage }): ReactElement => {
+  const router = useRouter();
 
-  const { data } = artworksAPI.useFetchArtworksBySearchQuery({
-    limit: artPerPage,
-    page: currentPage,
-    text: searchText,
-  });
+  const handlerChangeArtsPerPage = (nextValue: string) => {
+    router.query.limit = nextValue;
+    router.query.page = '1';
+    router.push({
+      pathname: router.pathname,
+      query: router.query,
+    });
+  };
 
-  const dispatch = useAppDispatch();
   return (
     <section className={classes.artList}>
       <SectionWrapper className={classes.wrapper}>
@@ -37,23 +38,20 @@ const ArtList: FC<Props> = (): ReactElement => {
                 { value: '20', text: '20 arts' },
               ]}
               value={`${artPerPage}`}
-              onChange={(value: string) => {
-                dispatch(setCurrentPage(1));
-                dispatch(setArtPerPage(+value));
-              }}
+              onChange={handlerChangeArtsPerPage}
             />
           }
         >
           Artworks
         </SectionHeader>
 
-        {!data || isLoading ? (
+        {!artworks ? (
           <Loader />
-        ) : data.length === 0 ? (
+        ) : artworks.length === 0 ? (
           <div>No matches found</div>
         ) : (
           <div className={classes.artListInner}>
-            {data.map((art) => (
+            {artworks.map((art) => (
               <ArtCard key={art.id} art={art} />
             ))}
           </div>

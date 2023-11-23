@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import classes from './style.module.scss';
 import { FC, ReactElement } from 'react';
 
@@ -13,10 +13,10 @@ type Props = {
 const AsideWidget: FC<Props> = (props): ReactElement => {
   return (
     <div className={classes.asideWidget} data-testid={'aside-widget'}>
-      <Link to={props.linkFrom} className={classes.dimmer}></Link>
+      <Link href={props.linkFrom} className={classes.dimmer}></Link>
 
       <div className={classes.inner}>
-        <Link to={props.linkFrom} className={classes.closeBtn}>
+        <Link href={props.linkFrom} className={classes.closeBtn}>
           Close
         </Link>
         {props.children}
