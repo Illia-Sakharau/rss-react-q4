@@ -1,33 +1,31 @@
-import { artworksAPI } from '../../../API/aicAPI';
+import { Art } from '@/types';
 import Loader from '../../1-atoms/loader/Loader';
 import RowInfo from './RowInfo';
 import classes from './style.module.scss';
 import { FC, ReactElement } from 'react';
 
 type Props = {
-  artID: string;
+  artInfo: Art | undefined;
 };
 
-const ArtDetails: FC<Props> = (props): ReactElement => {
-  const { data, isFetching } = artworksAPI.useFetchArtworkQuery(props.artID);
-
+const ArtDetails: FC<Props> = ({ artInfo }): ReactElement => {
   return (
     <div className={classes.wrapper}>
-      {isFetching || !data ? (
+      {!artInfo ? (
         <Loader />
       ) : (
         <>
           <div className={classes.imageWrapper}>
-            <img src={data.imgURL} alt={data.imgAlt} />
+            <img src={artInfo.imgURL} alt={artInfo.imgAlt} />
           </div>
 
-          <h3 className={classes.title}>{data.title}</h3>
-          <RowInfo title="Artist" text={data.artist} />
-          <RowInfo title="Date" text={data.date} />
-          <RowInfo title="Category" text={data.category} />
+          <h3 className={classes.title}>{artInfo.title}</h3>
+          <RowInfo title="Artist" text={artInfo.artist} />
+          <RowInfo title="Date" text={artInfo.date} />
+          <RowInfo title="Category" text={artInfo.category} />
           <RowInfo
             title="Provenance"
-            text={data.provenance}
+            text={artInfo.provenance}
             className={classes.rowText}
           />
         </>

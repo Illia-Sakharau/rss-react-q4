@@ -13,7 +13,7 @@ const ArtCard: FC<Props> = ({ art }): ReactElement => {
   const queryParams = router.asPath.split('?')[1] || '';
 
   return (
-    <Link href={`./${art.id}?${queryParams}`}>
+    <Link href={`/gallery/${art.id}?${queryParams}`}>
       <div className={classes.artCard}>
         <div className={classes.imageWrapper}>
           <img src={art.imgURL} alt={art.imgAlt} />
