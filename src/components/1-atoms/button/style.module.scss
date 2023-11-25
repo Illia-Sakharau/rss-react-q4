@@ -1,0 +1,19 @@
+.button {
+  padding: 16px 32px;
+  color: white;
+  background: var(--color-black);
+  font-size: 24px;
+
+  &:hover {
+    cursor: pointer;
+    background: #555;
+  }
+  &:active {
+    cursor: pointer;
+    background: black;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background: #555;
+  }
+}

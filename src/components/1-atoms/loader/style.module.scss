@@ -1,0 +1,30 @@
+.loader {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+
+  font-family: sans-serif;
+  font-size: 32px;
+  font-weight: 100;
+}
+
+.squareLoader {
+  width: 50px;
+  height: 50px;
+  border: solid 2px black;
+  animation: rotate 1s infinite ease-in-out;
+}
+
+@keyframes rotate {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+  }
+}
