@@ -10,10 +10,12 @@ type Props = {
 
 const ArtCard: FC<Props> = ({ art }): ReactElement => {
   const router = useRouter();
-  const queryParams = router.asPath.split('?')[1] || '';
+  const queryParams = router.asPath.split('?')[1]
+    ? `?${router.asPath.split('?')[1]}`
+    : '';
 
   return (
-    <Link href={`/gallery/${art.id}?${queryParams}`}>
+    <Link href={`/gallery/${art.id}${queryParams}`}>
       <div className={classes.artCard}>
         <div className={classes.imageWrapper}>
           <img src={art.imgURL} alt={art.imgAlt} />
