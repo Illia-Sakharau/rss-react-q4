@@ -1,13 +1,9 @@
 import { describe, it } from 'vitest';
-import { fireEvent, render, screen } from '@testing-library/react';
-import {
-  MemoryRouter,
-  Outlet,
-  RouterProvider,
-  createMemoryRouter,
-} from 'react-router-dom';
+import { render, screen } from '@testing-library/react';
 import * as TEST_DATA from '../../../test/testData';
 import NavBar from './NavBar';
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime';
+import { createMockRouter } from '../../../test/createMockRouter';
 
 describe('Navigation bar', () => {
   const linksInBarTest = [
@@ -28,9 +24,9 @@ describe('Navigation bar', () => {
 
   it('Have passed className and links', () => {
     render(
-      <MemoryRouter>
+      <RouterContext.Provider value={createMockRouter()}>
         <NavBar linksInBar={linksInBarTest} className={classNameTest} />
-      </MemoryRouter>
+      </RouterContext.Provider>
     );
 
     expect(screen.getByRole('navigation')).toHaveClass(classNameTest);
@@ -41,34 +37,18 @@ describe('Navigation bar', () => {
     });
   });
 
-  it('Check navigation', () => {
-    const routes = [
-      {
-        path: '/',
-        element: (
-          <div>
-            <NavBar linksInBar={linksInBarTest} />
-            <Outlet />
-          </div>
-        ),
-        children: linksInBarTest.map((link) => ({
-          path: link.to,
-          element: <div data-testid={link.text}></div>,
-        })),
-      },
-    ];
+  it('Works without unnessasery props', () => {
+    render(
+      <RouterContext.Provider value={createMockRouter()}>
+        <NavBar linksInBar={linksInBarTest} />
+      </RouterContext.Provider>
+    );
 
-    const router = createMemoryRouter(routes, {
-      initialEntries: ['/'],
-    });
+    expect(screen.getByRole('navigation')).toBeInTheDocument();
 
-    render(<RouterProvider router={router} />);
-
-    expect(router.state.location.pathname).toBe('/');
-
-    linksInBarTest.reverse().forEach((link) => {
-      fireEvent.click(screen.getByRole('link', { name: link.text }));
-      expect(router.state.location.pathname).toBe(link.to);
+    expect(screen.getAllByRole('link').length).toBe(linksInBarTest.length);
+    linksInBarTest.forEach((link) => {
+      expect(screen.getByRole('link', { name: link.text })).toBeInTheDocument();
     });
   });
 });

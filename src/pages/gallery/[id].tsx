@@ -7,7 +7,7 @@ import adapter from '@/utils/adapter';
 import { Art, ResponseInfo } from '@/types';
 import ArtAsideWidget from '@/components/3-organisms/ArtAsideWidget/ArtAsideWidget';
 
-export default function Gallery({
+export default function ArtworksDetails({
   totalPages,
   artworks,
   currentPage,

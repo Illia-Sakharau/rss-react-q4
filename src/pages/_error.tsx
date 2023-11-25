@@ -3,7 +3,6 @@ import classes from '@/styles/ErrorPage.module.scss';
 import { ReactElement } from 'react';
 import Button from '@/components/1-atoms/button/Button';
 import { NextApiResponse } from 'next/types';
-// import Error from 'next/error'
 
 type Props = { statusCode: number };
 

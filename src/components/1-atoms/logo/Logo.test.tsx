@@ -1,6 +1,5 @@
 import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 import * as TEST_DATA from '../../../test/testData';
 import Logo from './Logo';
 
@@ -8,22 +7,13 @@ describe('Logo', () => {
   const classNameTest = TEST_DATA.className;
 
   it('Have passed className', () => {
-    render(
-      <MemoryRouter>
-        <Logo className={classNameTest} />
-      </MemoryRouter>
-    );
+    render(<Logo className={classNameTest} />);
     expect(screen.getByText('exhi')).toBeInTheDocument();
     expect(screen.getByRole('link')).toHaveClass(classNameTest);
   });
 
   it('Works without unnecessary props', () => {
-    render(
-      <MemoryRouter>
-        <Logo />
-      </MemoryRouter>
-    );
-
+    render(<Logo />);
     expect(screen.getByText('exhi')).toBeInTheDocument();
   });
 });

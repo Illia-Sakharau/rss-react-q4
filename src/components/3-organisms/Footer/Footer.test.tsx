@@ -1,40 +1,16 @@
 import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { Outlet, RouterProvider, createMemoryRouter } from 'react-router-dom';
-import userEvent from '@testing-library/user-event';
 import Footer from './Footer';
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime';
+import { createMockRouter } from '@/test/createMockRouter';
 
 describe('Footer', () => {
-  const routes = [
-    {
-      path: '/',
-      element: (
-        <div>
-          <Footer />
-          <Outlet />
-        </div>
-      ),
-      children: [
-        {
-          path: '/',
-          element: <div data-testid={'home'}></div>,
-        },
-        {
-          path: '/gallery',
-          element: <div data-testid={'gallery'}></div>,
-        },
-      ],
-    },
-  ];
-
   it('Check navigation and logo', async () => {
-    const router = createMemoryRouter(routes, {
-      initialEntries: ['/'],
-    });
-
-    render(<RouterProvider router={router} />);
-
-    expect(router.state.location.pathname).toBe('/');
+    render(
+      <RouterContext.Provider value={createMockRouter()}>
+        <Footer />
+      </RouterContext.Provider>
+    );
 
     const logoEl = screen.getByTestId('logo');
     const homeLinkEl = screen.getByRole('link', {
@@ -51,11 +27,5 @@ describe('Footer', () => {
     expect(galleryLinkEl).toBeInTheDocument();
     expect(rssLogo).toBeInTheDocument();
     expect(aicLogo).toBeInTheDocument();
-
-    await userEvent.click(galleryLinkEl);
-    expect(router.state.location.pathname).toBe('/gallery');
-
-    await userEvent.click(homeLinkEl);
-    expect(router.state.location.pathname).toBe('/');
   });
 });
