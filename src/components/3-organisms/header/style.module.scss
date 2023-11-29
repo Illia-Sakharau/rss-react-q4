@@ -1,0 +1,13 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  padding: 16px 32px;
+  border-bottom: solid 1.5px var(--color-black);
+  background-color: var(--color-sf-dark);
+
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
+}
