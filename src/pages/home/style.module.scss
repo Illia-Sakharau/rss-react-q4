@@ -7,4 +7,17 @@
   & .header {
     justify-content: center;
   }
+
+  & .wrapper {
+    display: flex;
+    gap: 32px;
+
+    & > * {
+      flex-grow: 1;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
 }
