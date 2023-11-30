@@ -1,0 +1,9 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(90deg, #e7e6e1 50%, #f5f4f0 50.01%);
+
+  @media (max-width: 768px) {
+    background: linear-gradient(180deg, #f5f4f0 240px, #e7e6e1 240.01px);
+  }
+}

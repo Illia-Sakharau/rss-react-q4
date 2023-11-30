@@ -1,21 +1,15 @@
-import {
-  PageHeader,
-  SectionHeader,
-} from '../../components/1-atoms/headers/Headers';
-import SectionWrapper from '../../components/1-atoms/sectionWrapper/sectionWrapper';
+import classes from './style.module.scss';
 import { FC, ReactElement } from 'react';
+import FormSection from '../../components/3-organisms/formSection/formSection';
 
 type Props = unknown;
 
-const ReactHookForm: FC<Props> = (): ReactElement => {
+const ManuallyForm: FC<Props> = (): ReactElement => {
   return (
-    <main>
-      <PageHeader title="Form 2" subtitle="React Hook Form" />
-      <SectionWrapper>
-        <SectionHeader title="Form inputs" subtitle="React Hook Form" />
-      </SectionWrapper>
+    <main className={classes.page}>
+      <FormSection title={'Form 2'} subtitle={'React Hook Form'} />
     </main>
   );
 };
 
-export default ReactHookForm;
+export default ManuallyForm;
