@@ -1,3 +1,5 @@
+import { PageHeader } from '../../components/1-atoms/headers/Headers';
+import SectionWrapper from '../../components/1-atoms/sectionWrapper/sectionWrapper';
 import { useAppSelector } from '../../hooks/redux';
 import classes from './style.module.scss';
 import { FC, ReactElement } from 'react';
@@ -20,24 +22,26 @@ const Home: FC<Props> = (): ReactElement => {
   console.log(arr1);
 
   return (
-    <div className={classes.page}>
-      <h2>Home Page</h2>
-      <div>
-        {arr1.map((value) => (
-          <div key={`manuallyFormData${value[0]}`}>
-            <span>{`${value[0]}: `}</span>
-            <span>{value[1] || 'no data'}</span>
-          </div>
-        ))}
-        <br />
-        {arr2.map((value) => (
-          <div key={`manuallyFormData${value[0]}`}>
-            <span>{`${value[0]}: `}</span>
-            <span>{value[1] || 'no data'}</span>
-          </div>
-        ))}
-      </div>
-    </div>
+    <main className={classes.page}>
+      <PageHeader title={'Home Page'} className={classes.header} />
+      <SectionWrapper>
+        <div>
+          {arr1.map((value) => (
+            <div key={`manuallyFormData${value[0]}`}>
+              <span>{`${value[0]}: `}</span>
+              <span>{`${value[1]}`}</span>
+            </div>
+          ))}
+          <br />
+          {arr2.map((value) => (
+            <div key={`manuallyFormData${value[0]}`}>
+              <span>{`${value[0]}: `}</span>
+              <span>{value[1] || 'no data'}</span>
+            </div>
+          ))}
+        </div>
+      </SectionWrapper>
+    </main>
   );
 };
 
