@@ -8,6 +8,9 @@ import Button from '../../../components/1-atoms/button/Button';
 interface IFormInput {
   name: string;
   age: number;
+  email: string;
+  password: string;
+  confirmPassword: string;
 }
 
 const schema = yup.object().shape({
@@ -20,6 +23,30 @@ const schema = yup.object().shape({
     .transform((val, orig) => (orig == '' ? undefined : val))
     .required('Age is a required field')
     .min(0, 'Age cannot be negative'),
+  email: yup
+    .string()
+    .required('Email is a required field')
+    .email('Invalid email address'),
+  password: yup
+    .string()
+    .required('Password is a required field')
+    .matches(/(?=.*\d)/, 'Password should contain at least one number')
+    .matches(
+      /(?=.*\p{Lu})/u,
+      'Password should contain at least one uppercased letter'
+    )
+    .matches(
+      /(?=.*\p{Ll})/u,
+      'Password should contain at least one lowercased letter'
+    )
+    .matches(
+      /(?=.*[\W_])/,
+      'Password should contain at least one special character'
+    ),
+  confirmPassword: yup
+    .string()
+    .required('Please re-type your password')
+    .oneOf([yup.ref('password')], 'Passwords does not match'),
 });
 
 const Form: React.FC = () => {
@@ -50,6 +77,30 @@ const Form: React.FC = () => {
         placeholder={'Type your age'}
         error={errors.age}
         {...register('age')}
+      />
+      <TextfullInput
+        type={'email'}
+        label={'Email'}
+        required={true}
+        placeholder={'Type your email'}
+        error={errors.email}
+        {...register('email')}
+      />
+      <TextfullInput
+        type={'password'}
+        label={'Password'}
+        required={true}
+        placeholder={'Type new password'}
+        error={errors.password}
+        {...register('password')}
+      />
+      <TextfullInput
+        type={'password'}
+        label={'Confirm Password'}
+        required={true}
+        placeholder={'Re-type new password'}
+        error={errors.confirmPassword}
+        {...register('confirmPassword')}
       />
       <br />
       <Button type="submit">Submit</Button>
