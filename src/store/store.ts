@@ -1,10 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import ReactHookFormSlice from './reducers/ReactHookFormSlice';
-import ManuallyFormSlice from './reducers/ManuallyFormSlice';
+import FormsSubmissionsSlice from './reducers/FormsSubmissionsSlice';
 
 const rootReducer = combineReducers({
-  ReactHookFormSlice,
-  ManuallyFormSlice,
+  FormsSubmissionsSlice,
 });
 
 export const setupStore = () => {

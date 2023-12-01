@@ -3,6 +3,8 @@ import classes from './style.module.scss';
 import { FC, ReactElement } from 'react';
 import SectionWrapper from '../../1-atoms/sectionWrapper/sectionWrapper';
 import { SectionHeader } from '../../1-atoms/headers/Headers';
+import ImgForm1 from '../../../assets/img-form-1.jpg';
+import ImgForm2 from '../../../assets/img-form-2.jpg';
 
 type Props = {
   title: string;
@@ -17,7 +19,11 @@ const FormSection: FC<Props> = ({ title, subtitle }): ReactElement => {
         <div>FORM</div>
       </div>
       <div className={classes['side_image']}>
-        <div className={classes['side_image__image']} />
+        <img
+          src={title === 'Form 1' ? ImgForm1 : ImgForm2}
+          alt="just abstract image"
+          className={classes['side_image__image']}
+        />
       </div>
     </SectionWrapper>
   );

@@ -14,7 +14,7 @@
     width: 100%;
     height: 100%;
     border-radius: 2px;
-    background: url('../../../assets/img.jpg') 50% / cover no-repeat;
+    object-fit: cover;
   }
 }
 
