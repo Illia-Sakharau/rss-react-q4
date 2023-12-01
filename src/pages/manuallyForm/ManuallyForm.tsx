@@ -7,7 +7,11 @@ type Props = unknown;
 const ManuallyForm: FC<Props> = (): ReactElement => {
   return (
     <main className={classes.page}>
-      <FormSection title={'Form 1'} subtitle={'Manually Form'} />
+      <FormSection
+        title={'Form 1'}
+        subtitle={'Manually Form'}
+        formEl={<div>FORM__1</div>}
+      />
     </main>
   );
 };

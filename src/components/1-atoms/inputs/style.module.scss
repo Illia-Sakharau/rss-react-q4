@@ -43,3 +43,8 @@
     }
   }
 }
+
+.required::after {
+  content: ' *';
+  color: var(--color-negative);
+}

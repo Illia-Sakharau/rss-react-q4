@@ -1,4 +1,3 @@
-// import classes from './style.module.scss';
 import classes from './style.module.scss';
 import { FC, ReactElement } from 'react';
 import SectionWrapper from '../../1-atoms/sectionWrapper/sectionWrapper';
@@ -9,14 +8,15 @@ import ImgForm2 from '../../../assets/img-form-2.jpg';
 type Props = {
   title: string;
   subtitle: string;
+  formEl: ReactElement;
 };
 
-const FormSection: FC<Props> = ({ title, subtitle }): ReactElement => {
+const FormSection: FC<Props> = ({ title, subtitle, formEl }): ReactElement => {
   return (
     <SectionWrapper className={classes.wrapper}>
       <div className={classes['side_form']}>
         <SectionHeader title={title} subtitle={subtitle} />
-        <div>FORM</div>
+        {formEl}
       </div>
       <div className={classes['side_image']}>
         <img

@@ -11,7 +11,7 @@ type Props = {
   type: 'text' | 'number' | 'email' | 'password';
   label: string;
   error: FieldError | undefined;
-
+  required?: boolean;
   name: string;
   ref: RefCallBack;
   onBlur: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -19,14 +19,16 @@ type Props = {
 } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 export const TextfullInput = forwardRef<HTMLInputElement, Props>(
-  ({ type, label, error, name, onBlur, onChange, ...props }, ref) => {
+  ({ type, label, error, required, name, onBlur, onChange, ...props }, ref) => {
     const className = !error
       ? classes['input-wrapper']
       : `${classes['input-wrapper']} ${classes['input-wrapper_error']}`;
 
     return (
       <div className={className}>
-        <label htmlFor={label}>{label}</label>
+        <label className={required ? classes.required : ''} htmlFor={label}>
+          {label}
+        </label>
         <input
           type={type}
           id={label}
