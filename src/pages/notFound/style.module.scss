@@ -4,7 +4,8 @@
   align-items: center;
   justify-content: center;
   gap: 64px;
-  min-height: calc(100vh - 180px);
+  min-height: calc(100vh - 162px);
+  background-color: var(--color-sf-light);
 
   @media (max-width: 632px) {
     gap: 32px;
@@ -19,6 +20,7 @@
   width: 600px;
   height: 600px;
   border: solid 1.5px var(--color-black);
+  border-radius: 4px;
 
   @media (max-width: 632px) {
     width: calc(100vw - 32px);
