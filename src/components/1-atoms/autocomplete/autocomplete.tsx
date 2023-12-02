@@ -21,7 +21,7 @@ type Props = {
 export const Autocomplete = forwardRef<HTMLInputElement, Props>(
   ({ options, name, ...props }, ref) => {
     const additionalEl = (
-      <datalist id={`ily-${name}`}>
+      <datalist id={name}>
         {options.map((option) => (
           <option value={option} key={option} />
         ))}
@@ -32,7 +32,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, Props>(
       <TextfullInput
         {...props}
         additionalEl={additionalEl}
-        list={`ily-${name}`}
+        list={name}
         type="text"
         name={name}
         ref={ref}

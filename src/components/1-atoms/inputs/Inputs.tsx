@@ -42,18 +42,15 @@ export const TextfullInput = forwardRef<HTMLInputElement, Props>(
     return (
       <div className={className}>
         <div className={classes.header}>
-          <label
-            className={required ? classes.required : ''}
-            htmlFor={`ily-${label}`}
-          >
+          <label className={required ? classes.required : ''} htmlFor={label}>
             {label}
           </label>
           {additionalEl && additionalEl}
         </div>
         <input
           type={type}
-          id={`ily-${label}`}
-          name={`ily-${name}`}
+          id={label}
+          name={name}
           onBlur={onBlur}
           onChange={onChange}
           {...props}
