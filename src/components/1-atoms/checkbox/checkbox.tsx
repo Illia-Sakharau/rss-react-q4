@@ -18,21 +18,13 @@ type Props = {
 } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 const Checkbox = forwardRef<HTMLInputElement, Props>(
-  (
-    {
-      label,
-      error,
-      // required,
-      name,
-      onBlur,
-      onChange,
-      ...props
-    },
-    ref
-  ) => {
+  ({ label, error, required, name, onBlur, onChange, ...props }, ref) => {
+    const containerClassName = required
+      ? `${classes.container} ${classes.required}`
+      : classes.container;
     return (
       <div className={classes['input-wrapper']}>
-        <label className={classes.container} htmlFor={label}>
+        <label className={containerClassName} htmlFor={label}>
           <input
             type={'checkbox'}
             id={label}

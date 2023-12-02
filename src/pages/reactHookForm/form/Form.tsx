@@ -173,6 +173,7 @@ const Form: React.FC = () => {
 
       <Checkbox
         label={'Accept terms and conditions'}
+        required
         error={errors.terms}
         {...register('terms')}
       />
