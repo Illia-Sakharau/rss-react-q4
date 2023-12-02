@@ -4,6 +4,7 @@ import {
   ChangeEvent,
   DetailedHTMLProps,
   InputHTMLAttributes,
+  ReactElement,
   forwardRef,
 } from 'react';
 
@@ -16,23 +17,43 @@ type Props = {
   ref: RefCallBack;
   onBlur: (e: ChangeEvent<HTMLInputElement>) => void;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  additionalEl?: ReactElement;
 } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 export const TextfullInput = forwardRef<HTMLInputElement, Props>(
-  ({ type, label, error, required, name, onBlur, onChange, ...props }, ref) => {
+  (
+    {
+      type,
+      label,
+      error,
+      required,
+      name,
+      onBlur,
+      onChange,
+      additionalEl,
+      ...props
+    },
+    ref
+  ) => {
     const className = !error
       ? classes['input-wrapper']
       : `${classes['input-wrapper']} ${classes['input-wrapper_error']}`;
 
     return (
       <div className={className}>
-        <label className={required ? classes.required : ''} htmlFor={label}>
-          {label}
-        </label>
+        <div className={classes.header}>
+          <label
+            className={required ? classes.required : ''}
+            htmlFor={`ily-${label}`}
+          >
+            {label}
+          </label>
+          {additionalEl && additionalEl}
+        </div>
         <input
           type={type}
-          id={label}
-          name={name}
+          id={`ily-${label}`}
+          name={`ily-${name}`}
           onBlur={onBlur}
           onChange={onChange}
           {...props}
