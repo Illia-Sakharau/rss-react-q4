@@ -1,3 +1,5 @@
+import Button from '../../components/1-atoms/button/Button';
+import { PageHeader } from '../../components/1-atoms/headers/Headers';
 import classes from './style.module.scss';
 import { FC, ReactElement } from 'react';
 
@@ -10,8 +12,8 @@ const Error: FC<Props> = (): ReactElement => {
 
   return (
     <div className={classes.page}>
-      <h2>Error Page</h2>
-      <button onClick={reloadHandler}>Reload page</button>
+      <PageHeader title={'Error Page'} className={classes.header} />
+      <Button onClick={reloadHandler}>Reload page</Button>
     </div>
   );
 };
