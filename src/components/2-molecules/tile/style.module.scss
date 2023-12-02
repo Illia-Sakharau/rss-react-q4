@@ -6,7 +6,7 @@
   padding: 48px;
   color: var(--color-black);
   border-radius: 3px;
-  transition: all 0.35s ease-out;
+  transition: transform 0.35s ease-out;
 
   &:hover {
     transform: scale(1.05);
@@ -27,4 +27,22 @@
 .value {
   font-family: sans-serif;
   font-size: 18px;
+}
+
+.last {
+  animation: 1.5s slidein;
+}
+
+@keyframes slidein {
+  from {
+    transform: scale(1.2);
+    background-color: var(--color-sf-dark);
+    border: solid 1.5px var(--color-black);
+  }
+
+  to {
+    transform: scale(1);
+    background-color: var(--color-sf-light);
+    border: solid 1.5px var(--color-sf-light);
+  }
 }

@@ -8,7 +8,9 @@ import { FC, ReactElement } from 'react';
 type Props = unknown;
 
 const Home: FC<Props> = (): ReactElement => {
-  const { submitions } = useAppSelector((state) => state.FormsSubmissionsSlice);
+  const { submitions, submitRedirect } = useAppSelector(
+    (state) => state.FormsSubmissionsSlice
+  );
 
   return (
     <main className={classes.page}>
@@ -22,8 +24,12 @@ const Home: FC<Props> = (): ReactElement => {
         <>
           <PageHeader title={'Home Page'} className={classes.header} />
           <SectionWrapper className={classes.wrapper}>
-            {submitions.map((submitInfo) => (
-              <Tile submitInfo={submitInfo} key={submitInfo.id} />
+            {submitions.map((submitInfo, i) => (
+              <Tile
+                submitInfo={submitInfo}
+                last={i === 0 && submitRedirect}
+                key={submitInfo.id}
+              />
             ))}
           </SectionWrapper>
         </>

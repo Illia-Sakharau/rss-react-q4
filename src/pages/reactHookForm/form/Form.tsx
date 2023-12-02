@@ -4,6 +4,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { TextfullInput } from '../../../components/1-atoms/inputs/Inputs';
 import Button from '../../../components/1-atoms/button/Button';
+import { useAppDispatch } from '../../../hooks/redux';
+import { formsSubmissionsSlice } from '../../../store/reducers/FormsSubmissionsSlice';
+import { useNavigate } from 'react-router-dom';
 
 interface IFormInput {
   name: string;
@@ -50,6 +53,9 @@ const schema = yup.object().shape({
 });
 
 const Form: React.FC = () => {
+  const dispath = useAppDispatch();
+  const { setSubmitInfo, setSubmitRedirect } = formsSubmissionsSlice.actions;
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -57,7 +63,28 @@ const Form: React.FC = () => {
   } = useForm<IFormInput>({ resolver: yupResolver(schema), mode: 'onChange' });
 
   const onSubmit = (data: IFormInput) => {
-    console.log(data);
+    dispath(
+      setSubmitInfo({
+        id: '',
+        info: {
+          title: 'Form 2',
+          subtitle: 'React Hook Form',
+        },
+        data: {
+          name: data.name,
+          age: data.age,
+          email: data.email,
+          password: data.password,
+          gender: null,
+          termsAndConditions: false,
+          picture: null,
+          country: null,
+        },
+      })
+    );
+    setTimeout(() => dispath(setSubmitRedirect(false)), 1500);
+
+    navigate('/');
   };
 
   return (

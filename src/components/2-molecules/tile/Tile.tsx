@@ -5,13 +5,13 @@ import { SectionHeader } from '../../1-atoms/headers/Headers';
 
 type Props = {
   submitInfo: ISubmitInfo;
-  className?: string;
+  last: boolean;
 };
 
-const Tile: FC<Props> = ({ submitInfo, className }): ReactElement => {
+const Tile: FC<Props> = ({ submitInfo, last }): ReactElement => {
   const { id, info, data } = submitInfo;
-  const finalClassName = className
-    ? classes.tile + ' ' + className
+  const finalClassName = last
+    ? classes.tile + ' ' + classes.last
     : classes.tile;
 
   return (
