@@ -7,6 +7,9 @@ import Button from '../../../components/1-atoms/button/Button';
 import { useAppDispatch } from '../../../hooks/redux';
 import { formsSubmissionsSlice } from '../../../store/reducers/FormsSubmissionsSlice';
 import { useNavigate } from 'react-router-dom';
+import Autocomplete from '../../../components/1-atoms/autocomplete/autocomplete';
+
+const GENDERS_OPTIONS = ['male', 'female', 'other'];
 
 interface IFormInput {
   name: string;
@@ -14,6 +17,7 @@ interface IFormInput {
   email: string;
   password: string;
   confirmPassword: string;
+  gender: string;
 }
 
 const schema = yup.object().shape({
@@ -50,6 +54,13 @@ const schema = yup.object().shape({
     .string()
     .required('Please re-type your password')
     .oneOf([yup.ref('password')], 'Passwords does not match'),
+  gender: yup
+    .string()
+    .required('Gender is a required field')
+    .matches(
+      new RegExp(`^(${GENDERS_OPTIONS.join('|')})$`),
+      'Choose from following options'
+    ),
 });
 
 const Form: React.FC = () => {
@@ -60,7 +71,7 @@ const Form: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInput>({ resolver: yupResolver(schema), mode: 'onChange' });
+  } = useForm<IFormInput>({ resolver: yupResolver(schema), mode: 'all' });
 
   const onSubmit = (data: IFormInput) => {
     dispath(
@@ -128,6 +139,14 @@ const Form: React.FC = () => {
         placeholder={'Re-type new password'}
         error={errors.confirmPassword}
         {...register('confirmPassword')}
+      />
+      <Autocomplete
+        options={GENDERS_OPTIONS}
+        label={'Gender'}
+        required={true}
+        placeholder={'Choose your gender'}
+        error={errors.gender}
+        {...register('gender')}
       />
       <br />
       <Button type="submit">Submit</Button>
