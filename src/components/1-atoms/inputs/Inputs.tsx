@@ -1,22 +1,19 @@
 import { FieldError, RefCallBack } from 'react-hook-form';
 import classes from './style.module.scss';
 import {
-  ChangeEvent,
   DetailedHTMLProps,
   InputHTMLAttributes,
   ReactElement,
   forwardRef,
 } from 'react';
+import { ValidationError } from 'yup';
 
 type Props = {
   type: 'text' | 'number' | 'email' | 'password' | 'file';
   label: string;
-  error: FieldError | undefined;
+  error: FieldError | ValidationError | undefined;
   required?: boolean;
-  name: string;
   ref: RefCallBack;
-  onBlur: (e: ChangeEvent<HTMLInputElement>) => void;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   additionalEl?: ReactElement;
 } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
@@ -49,7 +46,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
         </div>
         <input
           type={type}
-          id={label}
+          id={name}
           name={name}
           onBlur={onBlur}
           onChange={onChange}

@@ -12,6 +12,10 @@
   &:hover {
     transform: scale(1.05);
   }
+
+  &:first-child {
+    border: solid 1.5px rgba(38, 43, 48, 0.3);
+  }
 }
 
 .item {
@@ -45,12 +49,10 @@
   from {
     transform: scale(1.2);
     background-color: var(--color-sf-dark);
-    border: solid 1.5px var(--color-black);
   }
 
   to {
     transform: scale(1);
     background-color: var(--color-sf-light);
-    border: solid 1.5px var(--color-sf-light);
   }
 }

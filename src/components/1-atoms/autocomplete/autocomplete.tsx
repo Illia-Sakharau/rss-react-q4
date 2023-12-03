@@ -1,21 +1,14 @@
 import { FieldError, RefCallBack } from 'react-hook-form';
-import {
-  ChangeEvent,
-  DetailedHTMLProps,
-  InputHTMLAttributes,
-  forwardRef,
-} from 'react';
+import { DetailedHTMLProps, InputHTMLAttributes, forwardRef } from 'react';
 import Input from '../inputs/Inputs';
+import { ValidationError } from 'yup';
 
 type Props = {
   options: string[];
   label: string;
-  error: FieldError | undefined;
+  error: FieldError | ValidationError | undefined;
   required?: boolean;
-  name: string;
   ref: RefCallBack;
-  onBlur: (e: ChangeEvent<HTMLInputElement>) => void;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 export const Autocomplete = forwardRef<HTMLInputElement, Props>(

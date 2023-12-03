@@ -1,20 +1,13 @@
 import { FieldError, RefCallBack } from 'react-hook-form';
 import classes from './style.module.scss';
-import {
-  ChangeEvent,
-  DetailedHTMLProps,
-  InputHTMLAttributes,
-  forwardRef,
-} from 'react';
+import { DetailedHTMLProps, InputHTMLAttributes, forwardRef } from 'react';
+import { ValidationError } from 'yup';
 
 type Props = {
   label: string;
-  error: FieldError | undefined;
+  error: FieldError | ValidationError | undefined;
   required?: boolean;
-  name: string;
   ref: RefCallBack;
-  onBlur: (e: ChangeEvent<HTMLInputElement>) => void;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 const Checkbox = forwardRef<HTMLInputElement, Props>(

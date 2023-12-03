@@ -8,6 +8,7 @@ import {
   useRef,
 } from 'react';
 import Input from '../inputs/Inputs';
+import { ValidationError } from 'yup';
 
 const POwER_WIDTHS = ['1%', '25%', '50%', '75%', '100%'];
 const POWER_COLORS = ['#C5171C', '#C86F3D', '#DEB03B', '#B6CB34', '#619C25'];
@@ -20,12 +21,9 @@ const POWER_TESTS = [
 
 type Props = {
   label: string;
-  error: FieldError | undefined;
+  error: FieldError | ValidationError | undefined;
   required?: boolean;
-  name: string;
   ref: RefCallBack;
-  onBlur: (e: ChangeEvent<HTMLInputElement>) => void;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 const Password = forwardRef<HTMLInputElement, Props>(
@@ -45,7 +43,9 @@ const Password = forwardRef<HTMLInputElement, Props>(
       POWER_TESTS.forEach((item) => item.test(value) && point++);
       pointerEl.style.width = POwER_WIDTHS[point];
       pointerEl.style.backgroundColor = POWER_COLORS[point];
-      onChange(e);
+      if (onChange) {
+        onChange(e);
+      }
     };
 
     return (

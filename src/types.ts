@@ -26,3 +26,15 @@ export interface ISubmitInfo {
   info: IFormInfo;
   data: IFormData;
 }
+
+export interface IFormInput {
+  name: string;
+  age: number;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  gender: string;
+  country: string;
+  picture: [File];
+  terms: boolean;
+}

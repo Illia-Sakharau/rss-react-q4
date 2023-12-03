@@ -244,3 +244,4 @@ export const COUNTRIES_OPTIONS = [
   'Zambia',
   'Zimbabwe',
 ];
+export const SUPPORTED_FORMATS = ['image/jpeg', 'image/png'];
