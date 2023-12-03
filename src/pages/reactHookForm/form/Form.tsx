@@ -20,7 +20,7 @@ const Form: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<IFormInput>({ resolver: yupResolver(schema), mode: 'all' });
 
   const onSubmit = async (data: IFormInput) => {
@@ -127,7 +127,9 @@ const Form: React.FC = () => {
       />
 
       <br />
-      <Button type="submit">Submit</Button>
+      <Button type="submit" disabled={!isValid}>
+        Submit
+      </Button>
     </form>
   );
 };
