@@ -8,8 +8,15 @@ import Password from '../../../components/1-atoms/password/password';
 import { FormEvent, useRef, useState } from 'react';
 import { ValidationError } from 'yup';
 import schema from '../../../validation';
+import { useAppDispatch } from '../../../hooks/redux';
+import { formsSubmissionsSlice } from '../../../store/reducers/FormsSubmissionsSlice';
+import { useNavigate } from 'react-router-dom';
+import { Gender } from '../../../types';
 
 const Form: React.FC = () => {
+  const dispath = useAppDispatch();
+  const { setSubmitInfo, setSubmitRedirect } = formsSubmissionsSlice.actions;
+  const navigate = useNavigate();
   const [errors, setErrors] = useState<{
     [index: string]: ValidationError | undefined;
   }>({});
@@ -26,9 +33,9 @@ const Form: React.FC = () => {
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const pictureInputEl = pictureInput.current as HTMLInputElement;
+    const newErrors: { [index: string]: ValidationError } = {};
+    const reader = new FileReader();
 
-    console.log(pictureInputEl);
     await schema
       .validate(
         {
@@ -39,7 +46,7 @@ const Form: React.FC = () => {
           confirmPassword: confirmPasswordInput.current?.value,
           gender: genderInput.current?.value,
           country: countryInput.current?.value,
-          picture: pictureInput.current?.value,
+          picture: pictureInput.current?.files,
           terms: termsInput.current?.checked,
         },
         {
@@ -47,7 +54,6 @@ const Form: React.FC = () => {
         }
       )
       .catch((err: ValidationError) => {
-        const newErrors: { [index: string]: ValidationError } = {};
         err.inner.forEach((error) => {
           const name = error.path as string;
           if (!newErrors[name]) {
@@ -56,6 +62,35 @@ const Form: React.FC = () => {
         });
         setErrors(newErrors);
       });
+
+    if (Object.keys(newErrors).length === 0 && pictureInput.current?.files) {
+      reader.readAsDataURL(pictureInput.current?.files[0]);
+
+      reader.onloadend = function () {
+        dispath(
+          setSubmitInfo({
+            id: `${Date.now()}`,
+            info: {
+              title: 'Form 1',
+              subtitle: 'Manually Form',
+            },
+            data: {
+              name: `${nameInput.current?.value}`,
+              age: +`${ageInput.current?.value}`,
+              email: `${emailInput.current?.value}`,
+              password: `${passwordInput.current?.value}`,
+              gender: genderInput.current?.value as Gender,
+              termsAndConditions: !!termsInput.current?.checked,
+              country: `${countryInput.current?.value}`,
+              picture: reader.result as string,
+            },
+          })
+        );
+        setTimeout(() => dispath(setSubmitRedirect(false)), 1500);
+
+        navigate('/');
+      };
+    }
   };
 
   return (
@@ -67,7 +102,9 @@ const Form: React.FC = () => {
         placeholder={'Type your Name'}
         name={'Name'}
         onChange={() => {
-          setErrors({ ...errors, name: undefined });
+          const errorsMod = errors;
+          delete errorsMod.name;
+          setErrors({ ...errorsMod });
         }}
         error={errors.name}
         ref={nameInput}
