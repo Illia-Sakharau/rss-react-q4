@@ -1,0 +1,28 @@
+:root {
+  --color-black: #262b30;
+  --color-sf-dark: #e7e6e1;
+  --color-sf-light: #f5f4f0;
+  --color-negative: #c5171c;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+  border: none;
+  outline: none;
+}
+
+a,
+a:link,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+main {
+  min-height: calc(100vh - 162px);
+}

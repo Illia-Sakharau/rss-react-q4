@@ -1,0 +1,14 @@
+.power-container {
+  background-color: var(--color-black);
+  height: 8px;
+  border-radius: 3px;
+  opacity: 0.3;
+}
+
+.power-container .power-point {
+  background-color: var(--color-negative);
+  width: 1%;
+  height: 100%;
+  border-radius: 3px;
+  transition: 0.5s;
+}
