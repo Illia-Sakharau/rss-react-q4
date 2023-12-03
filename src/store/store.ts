@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import FormsSubmissionsSlice from './reducers/FormsSubmissionsSlice';
+import CountriesSlice from './reducers/CountriesSlice';
 
 const rootReducer = combineReducers({
   FormsSubmissionsSlice,
+  CountriesSlice,
 });
 
 export const setupStore = () => {

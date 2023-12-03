@@ -3,12 +3,12 @@ import { FieldError, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Input from '../../../components/1-atoms/inputs/Inputs';
 import Button from '../../../components/1-atoms/button/Button';
-import { useAppDispatch } from '../../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { formsSubmissionsSlice } from '../../../store/reducers/FormsSubmissionsSlice';
 import { useNavigate } from 'react-router-dom';
 import Autocomplete from '../../../components/1-atoms/autocomplete/autocomplete';
 import { Gender, IFormInput } from '../../../types';
-import { COUNTRIES_OPTIONS, GENDERS_OPTIONS } from '../../../constants';
+import { GENDERS_OPTIONS } from '../../../constants';
 import Checkbox from '../../../components/1-atoms/checkbox/checkbox';
 import Password from '../../../components/1-atoms/password/password';
 import schema from '../../../validation';
@@ -16,6 +16,7 @@ import schema from '../../../validation';
 const Form: React.FC = () => {
   const dispath = useAppDispatch();
   const { setSubmitInfo, setSubmitRedirect } = formsSubmissionsSlice.actions;
+  const { countries } = useAppSelector((state) => state.CountriesSlice);
   const navigate = useNavigate();
   const {
     register,
@@ -103,7 +104,7 @@ const Form: React.FC = () => {
         {...register('gender')}
       />
       <Autocomplete
-        options={COUNTRIES_OPTIONS}
+        options={countries}
         label={'Country'}
         required
         placeholder={'Choose your country'}

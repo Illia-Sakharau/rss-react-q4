@@ -2,13 +2,13 @@ import classes from './style.module.scss';
 import Input from '../../../components/1-atoms/inputs/Inputs';
 import Button from '../../../components/1-atoms/button/Button';
 import Autocomplete from '../../../components/1-atoms/autocomplete/autocomplete';
-import { COUNTRIES_OPTIONS, GENDERS_OPTIONS } from '../../../constants';
+import { GENDERS_OPTIONS } from '../../../constants';
 import Checkbox from '../../../components/1-atoms/checkbox/checkbox';
 import Password from '../../../components/1-atoms/password/password';
 import { FormEvent, useRef, useState } from 'react';
 import { ValidationError } from 'yup';
 import schema from '../../../validation';
-import { useAppDispatch } from '../../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { formsSubmissionsSlice } from '../../../store/reducers/FormsSubmissionsSlice';
 import { useNavigate } from 'react-router-dom';
 import { Gender } from '../../../types';
@@ -16,6 +16,7 @@ import { Gender } from '../../../types';
 const Form: React.FC = () => {
   const dispath = useAppDispatch();
   const { setSubmitInfo, setSubmitRedirect } = formsSubmissionsSlice.actions;
+  const { countries } = useAppSelector((state) => state.CountriesSlice);
   const navigate = useNavigate();
   const [errors, setErrors] = useState<{
     [index: string]: ValidationError | undefined;
@@ -102,9 +103,7 @@ const Form: React.FC = () => {
         placeholder={'Type your Name'}
         name={'Name'}
         onChange={() => {
-          const errorsMod = errors;
-          delete errorsMod.name;
-          setErrors({ ...errorsMod });
+          setErrors({ ...errors, name: undefined });
         }}
         error={errors.name}
         ref={nameInput}
@@ -165,7 +164,7 @@ const Form: React.FC = () => {
         ref={genderInput}
       />
       <Autocomplete
-        options={COUNTRIES_OPTIONS}
+        options={countries}
         label={'Country'}
         name={'country'}
         required

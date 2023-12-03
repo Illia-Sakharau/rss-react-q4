@@ -46,7 +46,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
         </div>
         <input
           type={type}
-          id={name}
+          id={label}
           name={name}
           onBlur={onBlur}
           onChange={onChange}
