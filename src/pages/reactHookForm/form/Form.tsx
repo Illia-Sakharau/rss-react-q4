@@ -1,8 +1,8 @@
 import classes from './style.module.scss';
-import { useForm } from 'react-hook-form';
+import { FieldError, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { TextfullInput } from '../../../components/1-atoms/inputs/Inputs';
+import Input from '../../../components/1-atoms/inputs/Inputs';
 import Button from '../../../components/1-atoms/button/Button';
 import { useAppDispatch } from '../../../hooks/redux';
 import { formsSubmissionsSlice } from '../../../store/reducers/FormsSubmissionsSlice';
@@ -12,6 +12,8 @@ import { Gender } from '../../../types';
 import { COUNTRIES_OPTIONS, GENDERS_OPTIONS } from '../../../constants';
 import Checkbox from '../../../components/1-atoms/checkbox/checkbox';
 
+const SUPPORTED_FORMATS = ['image/jpeg', 'image/png'];
+
 interface IFormInput {
   name: string;
   age: number;
@@ -19,8 +21,9 @@ interface IFormInput {
   password: string;
   confirmPassword: string;
   gender: string;
-  terms: boolean;
   country: string;
+  picture: [File];
+  terms: boolean;
 }
 
 const schema = yup.object().shape({
@@ -64,17 +67,31 @@ const schema = yup.object().shape({
       new RegExp(`^(${GENDERS_OPTIONS.join('|')})$`),
       'Choose from following options'
     ),
-  terms: yup
-    .boolean()
-    .required()
-    .oneOf([true], 'Please accept the terms and conditions'),
   country: yup
     .string()
-    .required('Gender is a required field')
+    .required('Country is a required field')
     .matches(
       new RegExp(`^(${COUNTRIES_OPTIONS.join('|')})$`),
       'Choose from following options'
     ),
+  picture: yup
+    .mixed<[File]>()
+    .required('Picture is a required')
+    .test('be', 'File have not uploaded', (value: [File]) => !!value[0])
+    .test(
+      'format',
+      'Not a valid image type (only .jpeg, .png)',
+      (value: [File]) => value[0] && SUPPORTED_FORMATS.includes(value[0].type)
+    )
+    .test(
+      'size',
+      'The file is too large (max 1 Mb)',
+      (value: [File]) => value[0] && value[0].size <= 1024 * 1024
+    ),
+  terms: yup
+    .boolean()
+    .required()
+    .oneOf([true], 'Please accept the terms and conditions'),
 });
 
 const Form: React.FC = () => {
@@ -87,69 +104,74 @@ const Form: React.FC = () => {
     formState: { errors },
   } = useForm<IFormInput>({ resolver: yupResolver(schema), mode: 'all' });
 
-  const onSubmit = (data: IFormInput) => {
-    dispath(
-      setSubmitInfo({
-        id: '',
-        info: {
-          title: 'Form 2',
-          subtitle: 'React Hook Form',
-        },
-        data: {
-          name: data.name,
-          age: data.age,
-          email: data.email,
-          password: data.password,
-          gender: data.gender as Gender,
-          termsAndConditions: data.terms,
-          picture: null,
-          country: data.country,
-        },
-      })
-    );
-    setTimeout(() => dispath(setSubmitRedirect(false)), 1500);
+  const onSubmit = async (data: IFormInput) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(data.picture[0]);
 
-    navigate('/');
+    reader.onloadend = function () {
+      dispath(
+        setSubmitInfo({
+          id: `${Date.now()}`,
+          info: {
+            title: 'Form 2',
+            subtitle: 'React Hook Form',
+          },
+          data: {
+            name: data.name,
+            age: data.age,
+            email: data.email,
+            password: data.password,
+            gender: data.gender as Gender,
+            termsAndConditions: data.terms,
+            country: data.country,
+            picture: reader.result as string,
+          },
+        })
+      );
+      setTimeout(() => dispath(setSubmitRedirect(false)), 1500);
+
+      navigate('/');
+    };
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
-      <TextfullInput
+      <Input
         type={'text'}
         label={'Name'}
-        required={true}
+        required
         placeholder={'Type your Name'}
         error={errors.name}
         {...register('name')}
       />
-      <TextfullInput
+      <Input
         type={'number'}
         label={'Age'}
-        required={true}
+        required
         placeholder={'Type your age'}
         error={errors.age}
         {...register('age')}
       />
-      <TextfullInput
+      <Input
         type={'email'}
         label={'Email'}
-        required={true}
+        required
         placeholder={'Type your email'}
         error={errors.email}
         {...register('email')}
       />
-      <TextfullInput
+      <Input
         type={'password'}
         label={'Password'}
-        required={true}
+        required
         placeholder={'Type new password'}
         error={errors.password}
         {...register('password')}
       />
-      <TextfullInput
+      <Input
         type={'password'}
         label={'Confirm Password'}
-        required={true}
+        required
         placeholder={'Re-type new password'}
         error={errors.confirmPassword}
         {...register('confirmPassword')}
@@ -157,7 +179,7 @@ const Form: React.FC = () => {
       <Autocomplete
         options={GENDERS_OPTIONS}
         label={'Gender'}
-        required={true}
+        required
         placeholder={'Choose your gender'}
         error={errors.gender}
         {...register('gender')}
@@ -165,10 +187,18 @@ const Form: React.FC = () => {
       <Autocomplete
         options={COUNTRIES_OPTIONS}
         label={'Country'}
-        required={true}
+        required
         placeholder={'Choose your country'}
         error={errors.country}
         {...register('country')}
+      />
+
+      <Input
+        type={'file'}
+        label={'Upload .jpeg or .png image (max 1 Mb)'}
+        required
+        error={errors.picture as FieldError}
+        {...register('picture')}
       />
 
       <Checkbox

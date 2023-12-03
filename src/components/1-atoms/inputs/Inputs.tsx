@@ -9,7 +9,7 @@ import {
 } from 'react';
 
 type Props = {
-  type: 'text' | 'number' | 'email' | 'password';
+  type: 'text' | 'number' | 'email' | 'password' | 'file';
   label: string;
   error: FieldError | undefined;
   required?: boolean;
@@ -20,7 +20,7 @@ type Props = {
   additionalEl?: ReactElement;
 } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
-export const TextfullInput = forwardRef<HTMLInputElement, Props>(
+const Input = forwardRef<HTMLInputElement, Props>(
   (
     {
       type,
@@ -63,3 +63,5 @@ export const TextfullInput = forwardRef<HTMLInputElement, Props>(
     );
   }
 );
+
+export default Input;

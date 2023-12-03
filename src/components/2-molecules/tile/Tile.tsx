@@ -22,7 +22,14 @@ const Tile: FC<Props> = ({ submitInfo, last }): ReactElement => {
         const key = `${id}${item[0]}`;
         const title = item[0][0].toUpperCase() + item[0].slice(1);
         const value = item[1] === null ? '---' : `${item[1]}`;
-
+        if (item[0] === 'picture' && item[1]) {
+          return (
+            <div className={classes.item} key={key}>
+              <h6 className={classes.title}>{title}</h6>
+              <img src={item[1]} alt="image" />
+            </div>
+          );
+        }
         return (
           <div className={classes.item} key={key}>
             <h6 className={classes.title}>{title}</h6>

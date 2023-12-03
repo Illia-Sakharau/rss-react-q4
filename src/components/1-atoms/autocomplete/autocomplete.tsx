@@ -5,7 +5,7 @@ import {
   InputHTMLAttributes,
   forwardRef,
 } from 'react';
-import { TextfullInput } from '../inputs/Inputs';
+import Input from '../inputs/Inputs';
 
 type Props = {
   options: string[];
@@ -29,7 +29,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, Props>(
     );
 
     return (
-      <TextfullInput
+      <Input
         {...props}
         additionalEl={additionalEl}
         list={name}
