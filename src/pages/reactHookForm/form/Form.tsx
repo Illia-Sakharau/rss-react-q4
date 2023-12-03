@@ -11,6 +11,7 @@ import Autocomplete from '../../../components/1-atoms/autocomplete/autocomplete'
 import { Gender } from '../../../types';
 import { COUNTRIES_OPTIONS, GENDERS_OPTIONS } from '../../../constants';
 import Checkbox from '../../../components/1-atoms/checkbox/checkbox';
+import Password from '../../../components/1-atoms/password/password';
 
 const SUPPORTED_FORMATS = ['image/jpeg', 'image/png'];
 
@@ -160,8 +161,7 @@ const Form: React.FC = () => {
         error={errors.email}
         {...register('email')}
       />
-      <Input
-        type={'password'}
+      <Password
         label={'Password'}
         required
         placeholder={'Type new password'}
